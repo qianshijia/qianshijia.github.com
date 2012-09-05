@@ -4,14 +4,23 @@
   <title><![CDATA[Eric's Blog]]></title>
   <link href="http://qianshijia.github.com/atom.xml" rel="self"/>
   <link href="http://qianshijia.github.com/"/>
-  <updated>2012-09-05T18:20:19+10:00</updated>
+  <updated>2012-09-05T18:55:02+10:00</updated>
   <id>http://qianshijia.github.com/</id>
   <author>
-    <name><![CDATA[Shijia Qian]]></name>
+    <name><![CDATA[Eric]]></name>
     <email><![CDATA[qian.shijia@gamil.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[来到墨尔本的第一天]]></title>
+    <link href="http://qianshijia.github.com/blog/2012/09/05/first-day-in-melbourne/"/>
+    <updated>2012-09-05T18:51:00+10:00</updated>
+    <id>http://qianshijia.github.com/blog/2012/09/05/first-day-in-melbourne</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[My first article]]></title>
