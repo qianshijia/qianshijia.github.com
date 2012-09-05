@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Eric's Blog]]></title>
-  <link href="http://qianshijia.github.com/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Blog | Eric's Blog]]></title>
+  <link href="http://qianshijia.github.com/blog/categories/blog/atom.xml" rel="self"/>
   <link href="http://qianshijia.github.com/"/>
   <updated>2012-09-05T17:52:17+10:00</updated>
   <id>http://qianshijia.github.com/</id>
