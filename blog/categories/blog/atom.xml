@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Blog | Eric's Blog]]></title>
   <link href="http://qianshijia.github.com/blog/categories/blog/atom.xml" rel="self"/>
   <link href="http://qianshijia.github.com/"/>
-  <updated>2012-09-05T18:11:42+10:00</updated>
+  <updated>2012-09-05T18:20:19+10:00</updated>
   <id>http://qianshijia.github.com/</id>
   <author>
     <name><![CDATA[Shijia Qian]]></name>
@@ -18,7 +18,7 @@
     <link href="http://qianshijia.github.com/blog/2012/09/05/my-first-article/"/>
     <updated>2012-09-05T17:02:00+10:00</updated>
     <id>http://qianshijia.github.com/blog/2012/09/05/my-first-article</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<p>This is my very first article posted on my <a href="http://octopress.org">Octopress</a> blog which is running on <a href="http://github.com/qianshijia/qianshijia.github.com">GitHub</a>.</p>
 ]]></content>
   </entry>
   
