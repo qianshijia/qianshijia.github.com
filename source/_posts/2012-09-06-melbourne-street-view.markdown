@@ -10,4 +10,6 @@ categories: Blog
 {% img right /images/street_view/streetview3.png 444 330 State Library %}</p>
 {% img left /images/street_view/streetview4.png %}
 {% img right /images/street_view/streetview5.png %}<br>
-{% img center /images/street_view/streetview6.png %}
+{% img center /images/street_view/streetview6.png %}<br>
+刚出去买了晚饭，9.5一盒盖浇饭外加一包软饮料，以后天天外面吃了。<br>
+{% img center /images/street_view/dinner.jpg %}
