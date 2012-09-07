@@ -3,7 +3,7 @@ layout: post
 title: "5分钟掌握Markdown"
 date: 2012-09-06 14:16
 comments: true
-categories: Blog
+categories: Programming
 ---
 ## Markdown简介：
 一种轻量的标记语言，易读易写，并能将所编写的文本转换成标准化的XHTML（HTML）文本。和一般的标记语言不同，Markdown的语法全都是由标点符号组成，简单易学，因此任何人都能够在5分钟内掌握这门标记语言。废话不多说，让我们马上开始学习Markdown。
