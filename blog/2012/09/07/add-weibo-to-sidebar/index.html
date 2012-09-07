@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: Blog - Eric's Blog</title>
+  <title>给博客添加新浪微博侧边栏 - Eric's Blog</title>
   <meta name="author" content="Eric">
 
   
-  <meta name="description" content="Category: Blog">
+  <meta name="description" content="今天闲得无聊，就想把博客的内容弄得再丰富一点。Octopress已经提供了丰富的侧边栏widget，比如Twitter，Google Plus，GitHub Repo等等，只需要在config.yml里配置一下用户名就可以了。但是考虑到天朝强大的防火墙的存在，所以我准备把新浪微博的侧边栏给添加进来 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://qianshijia.github.comblog/categories/blog/">
+  <link rel="canonical" href="http://qianshijia.github.com/blog/2012/09/07/add-weibo-to-sidebar/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -65,92 +65,133 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Blog</h1>
+    
+      <h1 class="entry-title">给博客添加新浪微博侧边栏</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-07T13:26:00+10:00" pubdate data-updated="true">Sep 7<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>今天闲得无聊，就想把博客的内容弄得再丰富一点。<a href="http://octopress.org">Octopress</a>已经提供了丰富的侧边栏widget，比如Twitter，Google Plus，GitHub Repo等等，只需要在<em>config.yml里配置一下用户名就可以了。但是考虑到天朝强大的防火墙的存在，所以我准备把新浪微博的侧边栏给添加进来。<br/>
+新浪微博已经提供了可以定制的微博侧边栏叫<a href="http://http://weibo.com/tool/weiboshow">微博秀</a>，这个工具就能够帮我们直接生成一个微博的侧边栏，非常方便。系统会自动给我们生成一个iframe，接下来我们就要把这个iframe添加到我们的博客侧边栏中去。<br/>
+首先，在博客所处的本地文件夹中找到source/</em>includes/asides，在这个文件夹下建立weibo.html。用编辑器打开这个文件，然后输入：</p>
 
-  
-  <h2>2012</h2>
+<pre><code>&lt;section&gt;
+    &lt;ul id="weibo"&gt;
+        &lt;li&gt;
+            &lt;iframe 
+            width="100%" 
+            height="550" 
+            class="share_self"  
+            frameborder="0" 
+            scrolling="no" 
+            src="http://widget.weibo.com/weiboshow/index.phplanguage=&amp;width=0&amp;height=550&amp;fansRow=&amp;ptype=1&amp;speed=0&amp;skin=2&amp;isTitle=1&amp;noborder=1&amp;isWeibo=1&amp;isFans=0&amp;uid=2277930531&amp;verifier=c773826d&amp;dpc=1"&gt;
+            &lt;/iframe&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/section&gt;
+</code></pre>
 
-<article>
-  
-<h1><a href="/blog/2012/09/07/add-weibo-to-sidebar/">给博客添加新浪微博侧边栏</a></h1>
-<time datetime="2012-09-07T13:26:00+10:00" pubdate><span class='month'>Sep</span> <span class='day'>07</span> <span class='year'>2012</span></time>
+<p>其中iframe那块代码就是刚才微博秀给我们生成的代码，不过为了能更方便地通过<em>config.yml来配置，我们用一些变量来替代了原有的值。然后到</em>config.yml中添加如下配置：</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/blog/'>Blog</a></span>
-</footer>
+<pre><code># Sina Weibo
+# 微博uid和verifier，可以在iframe中的src参数里找到
+weibo_uid: 2277930531
+weibo_verifier: c773826d
+# 显示粉丝的行数：1-7行
+weibo_fansrow: 1
+# 是否显示缩略图
+weibo_picshow: true
+# 配色方案：新浪提供了1-10种不同的配色方案
+weibo_skin: 2
+# 是否显示微博内容
+weibo_showcontent: true
+# 是否在底部显示粉丝栏
+weibo_showfans: false
+</code></pre>
 
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2012/09/06/melbourne-street-view/">墨尔本随便拍拍</a></h1>
-<time datetime="2012-09-06T16:44:00+10:00" pubdate><span class='month'>Sep</span> <span class='day'>06</span> <span class='year'>2012</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/blog/'>Blog</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2012/09/06/learn-markdown-in-five-mins/">5分钟掌握Markdown</a></h1>
-<time datetime="2012-09-06T14:16:00+10:00" pubdate><span class='month'>Sep</span> <span class='day'>06</span> <span class='year'>2012</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/blog/'>Blog</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2012/09/05/first-day-in-melbourne/">来到墨尔本的第一天</a></h1>
-<time datetime="2012-09-05T18:51:00+10:00" pubdate><span class='month'>Sep</span> <span class='day'>05</span> <span class='year'>2012</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/blog/'>Blog</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2012/09/05/my-first-article/">My first article</a></h1>
-<time datetime="2012-09-05T17:02:00+10:00" pubdate><span class='month'>Sep</span> <span class='day'>05</span> <span class='year'>2012</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/blog/'>Blog</a></span>
-</footer>
-
-
-</article>
-
+<p>好了接下来只要generate然后deploy就可以了。</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Eric</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-07T13:26:00+10:00" pubdate data-updated="true">Sep 7<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/blog/'>Blog</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://qianshijia.github.com/blog/2012/09/07/add-weibo-to-sidebar/" data-via="qianshijia" data-counturl="http://qianshijia.github.com/blog/2012/09/07/add-weibo-to-sidebar/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/09/06/melbourne-street-view/" title="Previous Post: 墨尔本随便拍拍">&laquo; 墨尔本随便拍拍</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -263,7 +304,10 @@
       var disqus_shortname = 'shijiablog';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://qianshijia.github.com/blog/2012/09/07/add-weibo-to-sidebar/';
+        var disqus_url = 'http://qianshijia.github.com/blog/2012/09/07/add-weibo-to-sidebar/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
