@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Eric's Blog]]></title>
-  <link href="http://qianshijia.github.com/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Programming | Eric's Blog]]></title>
+  <link href="http://qianshijia.github.com/blog/categories/programming/atom.xml" rel="self"/>
   <link href="http://qianshijia.github.com/"/>
   <updated>2012-09-07T14:30:05+10:00</updated>
   <id>http://qianshijia.github.com/</id>
@@ -46,25 +46,6 @@ weibo_showfans: false
 </code></pre>
 
 <p>好了接下来只要generate然后deploy就可以了。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[墨尔本随便拍拍]]></title>
-    <link href="http://qianshijia.github.com/blog/2012/09/06/melbourne-street-view/"/>
-    <updated>2012-09-06T16:44:00+10:00</updated>
-    <id>http://qianshijia.github.com/blog/2012/09/06/melbourne-street-view</id>
-    <content type="html"><![CDATA[<p><img class="right" src="http://qianshijia.github.com/images/street_view/streetview1.png" width="280" height="210"> 每天的生活很无聊，也就吃饭的时候去city晃晃其他时间就呆在家里研究自己的小学问。中午一路走到唐人街，路上的人那叫一个多，感觉我还是更适应霍巴特的那种乡村生活&#8211;安静，自在。马路上的上班族都是西装笔挺，还好程序员的工作应该不用每天穿西装，不然我肯定浑身不自在。中饭现在每天都去QV的寿司店买两个寿司，5块钱搞定。一会晚上还是去吃楼下那家川菜馆的盖浇饭。晚上继续投简历，争取在生活费花完之前能稳定下来。</p>
-
-<p><img class="left" src="http://qianshijia.github.com/images/street_view/streetview2.png" width="255" height="340" title="Pipe and shot factory" >
-<img class="right" src="http://qianshijia.github.com/images/street_view/streetview3.png" width="444" height="330" title="State Library" ></p>
-
-
-<p><img class="left" src="http://qianshijia.github.com/images/street_view/streetview4.png">
-<img class="right" src="http://qianshijia.github.com/images/street_view/streetview5.png"><br>
-<img class="center" src="http://qianshijia.github.com/images/street_view/streetview6.png"><br>
-刚出去买了晚饭，9.5一盒盖浇饭外加一包软饮料，以后天天外面吃了。<br>
-<img class="center" src="http://qianshijia.github.com/images/street_view/dinner.jpg"></p>
 ]]></content>
   </entry>
   
@@ -186,7 +167,7 @@ weibo_showfans: false
 
 <h3>强调</h3>
 
-<p>Markdown使用星号&#8221;*&#8221;和下划线&#8221;_&#8221;来标记需要强调的字词：</p>
+<p>Markdown使用星号"*"和下划线"_"来标记需要强调的字词：</p>
 
 <pre><code>一个星号和一个下划线代表强调：
 *强调强调强调*
@@ -225,7 +206,7 @@ __强调加粗强调加粗__
 <p>标记图片的语法和标记链接的语法颇为相似，也是有两种，第一种：
 1. 开头一个惊叹号!
 2. 接着一个方括号，里面是图片的替代文字
-3. 再接着一个圆括号，里面是图片的网址，可以在网址后用双引号写上图片的&#8221;Title&#8221;</p>
+3. 再接着一个圆括号，里面是图片的网址，可以在网址后用双引号写上图片的"Title"</p>
 
 <pre><code>![图片替代文字](http://example.com/image/pic.jpg "title")
 或者是相对路径：
@@ -244,48 +225,6 @@ __强调加粗强调加粗__
 <h3>结语</h3>
 
 <p>怎么样Markdown是不是很简单，希望大家通过学习都能掌握这门简单易用的标记语言，写出漂亮的网页文本。注：此博客的所有博文都是使用Markdown编写的，大家可以直接从我的github项目里下载到这些博文。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[来到墨尔本的第一天]]></title>
-    <link href="http://qianshijia.github.com/blog/2012/09/05/first-day-in-melbourne/"/>
-    <updated>2012-09-05T18:51:00+10:00</updated>
-    <id>http://qianshijia.github.com/blog/2012/09/05/first-day-in-melbourne</id>
-    <content type="html"><![CDATA[<p>昨天中午，正式离开了霍巴特&#8211;一个我生活学习了三年的小城市，来到了澳洲第二大城市墨尔本，准备在这里开始我人生崭新的篇章。</p>
-
-
-<p>盗用一下大姐在机场给我拍的照片^^</P>
-
-
-<p><img src="http://qianshijia.github.com/images/first_day_in_melbourne/hobart_airport.png"></p>
-
-<p>墨尔本对我来讲并不算一个太陌生的城市，之前已经来过几次，而且墨尔本的街道四四方方很好认，所以出去走走逛逛也肯定不会迷路。住的地方是一幢9层楼的公寓，地处CBD黄金地段，离CBD任何一个角落的距离都不超过30分钟的步行。先来放两张阳台上拍的“美景”吧</p>
-
-
-<p><img src="http://qianshijia.github.com/images/first_day_in_melbourne/city1.png">
-<img src="http://qianshijia.github.com/images/first_day_in_melbourne/city2.png"></p>
-
-<p><img class="right" src="http://qianshijia.github.com/images/first_day_in_melbourne/myroom.png" width="500" height="300">不过黄金地段也有黄金地段的不好，那就是房子太小，一层楼差不多有20户，每户大概都只有30-40平方，我的房间更只有5个平方。在霍巴特住了三年的house，现在一下子搬到这么个狭小的空间，感觉稍稍有点不适应。不过我也不太在意这些，对我来说地段好就可以了，反正也是一个人住，能有个容身之处就足够。家里另外两个室友都是东北的女生，一个88年，一个89年，都是墨尔本大学金融专业的高材生（相比起我们塔斯马尼亚大学，墨大的学生必须都是高材生，哈哈）。这俩东北女孩性格都挺爽朗，都挺好相处的。不过她们几乎白天都不在家，要么上课要么打工。大城市打工的机会很多所以找个兼职很容易，外加高昂的学费，所以几乎所有的留学生都会打零工。</P>
-
-
-<p><img class="left" src="http://qianshijia.github.com/images/first_day_in_melbourne/apartment.png" width="500" height="300">接下来来说说墨尔本最让我感到满意的地方&#8212;吃。公寓楼下周边地区到处都是餐馆，不光这些，走路十分钟到市中心，那里的餐馆就更多了。在霍巴特可怜巴巴得挨了三年“饿”，这次来到墨尔本准备把周围的餐馆一家家吃过来，哈哈。更爽的是，下馆子的消费比起霍巴特那是相当的平价了。比如今天，中饭寿司6块钱，晚上一碗盖浇饭加一杯饮料9.5，在霍巴特随便吃点至少要13，4。</p>
-
-
-<p>再来说说比较郁闷的事儿&#8212;找工作。从差不多两个礼拜前开始网上投简历，到今天差不多投了15份，至今没有任何的回应，看来网投果然不靠谱。生活费大概还能维持两个月，有可能两个月以后我也要去打零工了。大城市IT工作的机会确实不少，但是我钟意的职位却不多，大部分都是WEB开发，手机开发的职位要么就是需要有2年以上从业经验的，要么就干脆开高薪聘请项目经理，像我这种刚毕业的学生想做手机开发几乎是没有机会的。所以我要开始考虑是不是要转行做WEB，或者我还有个更疯狂的想法，混一年以后拿个澳洲国籍然后去美国找工作，我相信美国才是程序员的天堂。</p>
-
-
-<p>最后来说说这个博客，我不是一个喜欢写博客的人，但是我当我发现了我现在所用的这个博客框架后我要开始改变这种想法了，因为突然发现原来还可以用编程的方式来写博客。所以这个博客我会经常更新，发表一些日记或者编程上的心得。</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[My first article]]></title>
-    <link href="http://qianshijia.github.com/blog/2012/09/05/my-first-article/"/>
-    <updated>2012-09-05T17:02:00+10:00</updated>
-    <id>http://qianshijia.github.com/blog/2012/09/05/my-first-article</id>
-    <content type="html"><![CDATA[<p>This is my very first article posted on my <a href="http://octopress.org">Octopress</a> blog which is running on <a href="http://github.com/qianshijia/qianshijia.github.com">GitHub</a>.</p>
 ]]></content>
   </entry>
   
