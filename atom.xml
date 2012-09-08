@@ -4,7 +4,7 @@
   <title><![CDATA[Eric's Blog]]></title>
   <link href="http://qianshijia.github.com/atom.xml" rel="self"/>
   <link href="http://qianshijia.github.com/"/>
-  <updated>2012-09-07T14:30:05+10:00</updated>
+  <updated>2012-09-08T22:45:29+10:00</updated>
   <id>http://qianshijia.github.com/</id>
   <author>
     <name><![CDATA[Eric]]></name>
@@ -12,6 +12,20 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[用HTML5做了一个简单的画板]]></title>
+    <link href="http://qianshijia.github.com/blog/2012/09/08/my-canvas-using-html5/"/>
+    <updated>2012-09-08T22:40:00+10:00</updated>
+    <id>http://qianshijia.github.com/blog/2012/09/08/my-canvas-using-html5</id>
+    <content type="html"><![CDATA[<p>感觉死盯着手机开发貌似在澳洲的机会并不多，澳洲最多的还是WEB开发。所以今天就心血来潮的用HTML5现学现卖做了个非常简单的画板，程序写的很简陋也很乱，大家将就着看吧。</p>
+
+<script src="https://gist.github.com/3674531.js"> </script>
+
+
+<p><a href="http://qianshijia.github.com/my-canvas">点击这里看效果</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[给博客添加新浪微博侧边栏]]></title>
