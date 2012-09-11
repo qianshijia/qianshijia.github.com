@@ -1,55 +1,59 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://qianshijia.github.com/blog/2012/09/05/my-first-article/</loc>
+        <loc>http://erica.im/blog/2012/09/05/my-first-article/</loc>
         <lastmod>2012-09-05T18:20:08+10:00</lastmod>
     </url>
     <url>
-        <loc>http://qianshijia.github.com/blog/2012/09/05/first-day-in-melbourne/</loc>
+        <loc>http://erica.im/blog/2012/09/05/first-day-in-melbourne/</loc>
         <lastmod>2012-09-05T20:41:34+10:00</lastmod>
     </url>
     <url>
-        <loc>http://qianshijia.github.com/blog/2012/09/06/learn-markdown-in-five-mins/</loc>
+        <loc>http://erica.im/blog/2012/09/06/learn-markdown-in-five-mins/</loc>
         <lastmod>2012-09-07T14:29:46+10:00</lastmod>
     </url>
     <url>
-        <loc>http://qianshijia.github.com/blog/2012/09/06/melbourne-street-view/</loc>
+        <loc>http://erica.im/blog/2012/09/06/melbourne-street-view/</loc>
         <lastmod>2012-09-06T18:45:21+10:00</lastmod>
     </url>
     <url>
-        <loc>http://qianshijia.github.com/blog/2012/09/07/add-weibo-to-sidebar/</loc>
+        <loc>http://erica.im/blog/2012/09/07/add-weibo-to-sidebar/</loc>
         <lastmod>2012-09-07T14:29:37+10:00</lastmod>
     </url>
     <url>
-        <loc>http://qianshijia.github.com/blog/2012/09/08/my-canvas-using-html5/</loc>
+        <loc>http://erica.im/blog/2012/09/08/my-canvas-using-html5/</loc>
         <lastmod>2012-09-08T22:45:13+10:00</lastmod>
     </url>
     <url>
-        <loc>http://qianshijia.github.com/blog/2012/09/09/melbourne-museeum/</loc>
+        <loc>http://erica.im/blog/2012/09/09/melbourne-museeum/</loc>
         <lastmod>2012-09-09T19:53:07+10:00</lastmod>
     </url>
     <url>
-        <loc>http://qianshijia.github.com/blog/2012/09/10/state-library/</loc>
+        <loc>http://erica.im/blog/2012/09/10/state-library/</loc>
         <lastmod>2012-09-10T17:15:22+10:00</lastmod>
     </url>
     <url>
-        <loc>http://qianshijia.github.com/about/</loc>
+        <loc>http://erica.im/blog/2012/09/11/draw-pad-for-iphone/</loc>
+        <lastmod>2012-09-11T23:03:28+10:00</lastmod>
+    </url>
+    <url>
+        <loc>http://erica.im/about/</loc>
         <lastmod>2012-09-06T09:13:28+10:00</lastmod>
     </url>
     <url>
-        <loc>http://qianshijia.github.com/blog/archives/</loc>
-        <lastmod>2012-09-10T17:15:22+10:00</lastmod>
+        <loc>http://erica.im/blog/archives/</loc>
+        <lastmod>2012-09-11T23:03:28+10:00</lastmod>
     </url>
     <url>
-        <loc>http://qianshijia.github.com/</loc>
-        <lastmod>2012-09-10T17:15:22+10:00</lastmod>
+        <loc>http://erica.im/</loc>
+        <lastmod>2012-09-11T23:03:28+10:00</lastmod>
     </url>
     <url>
-        <loc>http://qianshijia.github.com/my-resume/</loc>
+        <loc>http://erica.im/my-resume/</loc>
         <lastmod>2012-09-06T09:43:20+10:00</lastmod>
     </url>
     <url>
-        <loc>http://qianshijia.github.com/projects/</loc>
+        <loc>http://erica.im/projects/</loc>
         <lastmod>2012-09-05T22:08:51+10:00</lastmod>
     </url>
 </urlset>

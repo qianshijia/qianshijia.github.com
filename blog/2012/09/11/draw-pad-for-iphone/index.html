@@ -1,33 +1,110 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Programming | Eric's Blog]]></title>
-  <link href="http://erica.im/blog/categories/programming/atom.xml" rel="self"/>
-  <link href="http://erica.im/"/>
-  <updated>2012-09-11T23:04:24+10:00</updated>
-  <id>http://erica.im/</id>
-  <author>
-    <name><![CDATA[Eric]]></name>
-    <email><![CDATA[qian.shijia@gamil.com]]></email>
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>简单的iPhone画板应用 - Eric's Blog</title>
+  <meta name="author" content="Eric">
 
   
-  <entry>
-    <title type="html"><![CDATA[简单的iPhone画板应用]]></title>
-    <link href="http://erica.im/blog/2012/09/11/draw-pad-for-iphone/"/>
-    <updated>2012-09-11T15:58:00+10:00</updated>
-    <id>http://erica.im/blog/2012/09/11/draw-pad-for-iphone</id>
-    <content type="html"><![CDATA[<p>前天用HTML5和JS做了一个简单的网页版的画图程序，作为一个初级的iOS开发人员（自封的）今天就来实现iPhone上的简单画板应用。
+  <meta name="description" content="前天用HTML5和JS做了一个简单的网页版的画图程序，作为一个初级的iOS开发人员（自封的）今天就来实现iPhone上的简单画板应用。
+第一步，打开xCode然后新建工程，这次我们选择SingleView Application模版，然后记得把Use Storyboards和Use &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://erica.im/blog/2012/09/11/draw-pad-for-iphone/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Eric's Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Eric's Blog</a></h1>
+  
+    <h2>Another blog powered by Octopress.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:erica.im" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/projects">Projects</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">简单的iPhone画板应用</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-11T15:58:00+10:00" pubdate data-updated="true">Sep 11<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>前天用HTML5和JS做了一个简单的网页版的画图程序，作为一个初级的iOS开发人员（自封的）今天就来实现iPhone上的简单画板应用。
 第一步，打开xCode然后新建工程，这次我们选择SingleView Application模版，然后记得把Use Storyboards和Use Automatic Reference Counting两个选项勾上。
 <img src="/images/my_drawpad/new.jpg"><br/>
 工程新建完毕后，接下来打开Mainstoryboard。然后从右下角的控件栏里连续拖两个UIImageView放到View Controller里，大小设置成全屏。接着把底下的ImageView的名字改成Main ImageView，上面的ImageView名字改成Drawing ImageView以便区分。这里稍稍解释一下这两个ImageView的作用。Drawing ImageView是用来接受用户每一次在屏幕上的“输入”的（手指的滑动）。从用户点击屏幕开始到手指离开屏幕，这样就算是一次“输入”。然后这次“输入”的“内容”就会被画到下面那个Main ImageView上。所以下面的Main ImageView才是真正用来保存用户所画的东西的。
 <img src="/images/my_drawpad/imageview.jpg"> <br/>
 然后到ViewController.h里建立两个UIImageView的IBOutlet，并在Mainstoryboard里把这两个Outlet和刚才添加的两个UIImageView联接起来。<br/>
-接下来第二步，我们开始设计主界面。我是这么设计的，所有的按钮都放置在屏幕底部，主要有这四个按钮：清除按钮--用来清楚之前画的所有内容，保存按钮--用来保存所画的图片，橡皮按钮，线条粗细选择按钮和颜色选择按钮。我把我用的<a href="http://erica.im/files/images.zip">图片</a>素材都打包了，大家可以直接下载来用。下面是我自己设计的界面以供参考，其中颜色选择和线条粗细选择按钮点击以后会弹出两个菜单供用户选择，实现方法后面介绍。<br/>
+接下来第二步，我们开始设计主界面。我是这么设计的，所有的按钮都放置在屏幕底部，主要有这四个按钮：清除按钮&#8211;用来清楚之前画的所有内容，保存按钮&#8211;用来保存所画的图片，橡皮按钮，线条粗细选择按钮和颜色选择按钮。我把我用的<a href="http://erica.im/files/images.zip">图片</a>素材都打包了，大家可以直接下载来用。下面是我自己设计的界面以供参考，其中颜色选择和线条粗细选择按钮点击以后会弹出两个菜单供用户选择，实现方法后面介绍。<br/>
 <img src="/images/my_drawpad/mainscreen1.jpg">
 <img src="/images/my_drawpad/mainscreen2.jpg"><br/>
-下面介绍弹出菜单的实现方法。我的实现方法是新建一个UIView然后把菜单里所有的Button添加到这个View里，然后再用addSubview把这个UIView添加到主界面。在这里我用了一个NSMutableDictionary--popoverDictionay来保存建好的UIView，这样每次我们点击按钮就不用重复建立UIView了。
+下面介绍弹出菜单的实现方法。我的实现方法是新建一个UIView然后把菜单里所有的Button添加到这个View里，然后再用addSubview把这个UIView添加到主界面。在这里我用了一个NSMutableDictionary&#8211;popoverDictionay来保存建好的UIView，这样每次我们点击按钮就不用重复建立UIView了。
 <img src="/images/my_drawpad/popoverview.jpg"><br/>
 接下来建立两个IBOutlet的UIButton连接到颜色选择和线条选择两个按钮，并建立两个IBAction然后联接到这两个按钮的TouchUpInside事件。下面的代码就是颜色选择按钮点击后的代码，线条按钮的代码类似。
 <img src="/images/my_drawpad/colorpickbtn.jpg">
@@ -296,236 +373,217 @@ if (error != NULL)
 
 <p>接下来我们最后测试一下看看是不是所有的功能都能不出错。如果不出错的话，恭喜，一个简单的iPhone画板应用完成了。
 这是整个项目的代码，有需要的请自行<a href="http://erica.im/files/DrawPad.zip">下载</a>。</p>
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    <title type="html"><![CDATA[用HTML5做了一个简单的画板]]></title>
-    <link href="http://erica.im/blog/2012/09/08/my-canvas-using-html5/"/>
-    <updated>2012-09-08T22:40:00+10:00</updated>
-    <id>http://erica.im/blog/2012/09/08/my-canvas-using-html5</id>
-    <content type="html"><![CDATA[<p>感觉死盯着手机开发貌似在澳洲的机会并不多，澳洲最多的还是WEB开发。所以今天就心血来潮的用HTML5现学现卖做了个非常简单的画板，程序写的很简陋也很乱，大家将就着看吧。</p>
 
-<script src="https://gist.github.com/3674531.js"> </script>
+<span class="byline author vcard">Posted by <span class="fn">Eric</span></span>
+
+      
 
 
-<p><a href="/my-canvas">点击这里看效果</a></p>
-]]></content>
-  </entry>
+
+
+
+
+
+
   
-  <entry>
-    <title type="html"><![CDATA[给博客添加新浪微博侧边栏]]></title>
-    <link href="http://erica.im/blog/2012/09/07/add-weibo-to-sidebar/"/>
-    <updated>2012-09-07T13:26:00+10:00</updated>
-    <id>http://erica.im/blog/2012/09/07/add-weibo-to-sidebar</id>
-    <content type="html"><![CDATA[<p>今天闲得无聊，就想把博客的内容弄得再丰富一点。<a href="http://octopress.org">Octopress</a>已经提供了丰富的侧边栏widget，比如Twitter，Google Plus，GitHub Repo等等，只需要在<em>config.yml里配置一下用户名就可以了。但是考虑到天朝强大的防火墙的存在，所以我准备把新浪微博的侧边栏给添加进来。<br/>
-新浪微博已经提供了可以定制的微博侧边栏叫<a href="http://http://weibo.com/tool/weiboshow">微博秀</a>，这个工具就能够帮我们直接生成一个微博的侧边栏，非常方便。系统会自动给我们生成一个iframe，接下来我们就要把这个iframe添加到我们的博客侧边栏中去。<br/>
-首先，在博客所处的本地文件夹中找到source/</em>includes/asides，在这个文件夹下建立weibo.html。用编辑器打开这个文件，然后输入：</p>
-
-<script src="https://gist.github.com/3662995.js"> </script>
 
 
-<p></p>
+<time datetime="2012-09-11T15:58:00+10:00" pubdate data-updated="true">Sep 11<span>th</span>, 2012</time>
+      
 
-<p>其中iframe那块代码就是刚才微博秀给我们生成的代码，不过为了能更方便地通过<em>config.yml来配置，我们用一些变量来替代了原有的值。然后到</em>config.yml中添加如下配置：</p>
-
-<pre><code># Sina Weibo
-# 微博uid和verifier，可以在iframe中的src参数里找到
-weibo_uid: 2277930531
-weibo_verifier: c773826d
-# 显示粉丝的行数：1-7行
-weibo_fansrow: 1
-# 是否显示缩略图
-weibo_picshow: true
-# 配色方案：新浪提供了1-10种不同的配色方案
-weibo_skin: 2
-# 是否显示微博内容
-weibo_showcontent: true
-# 是否在底部显示粉丝栏
-weibo_showfans: false
-</code></pre>
-
-<p>好了接下来只要generate然后deploy就可以了。</p>
-]]></content>
-  </entry>
+<span class="categories">
   
-  <entry>
-    <title type="html"><![CDATA[5分钟掌握Markdown]]></title>
-    <link href="http://erica.im/blog/2012/09/06/learn-markdown-in-five-mins/"/>
-    <updated>2012-09-06T14:16:00+10:00</updated>
-    <id>http://erica.im/blog/2012/09/06/learn-markdown-in-five-mins</id>
-    <content type="html"><![CDATA[<h2>Markdown简介：</h2>
-
-<p>一种轻量的标记语言，易读易写，并能将所编写的文本转换成标准化的XHTML（HTML）文本。和一般的标记语言不同，Markdown的语法全都是由标点符号组成，简单易学，因此任何人都能够在5分钟内掌握这门标记语言。废话不多说，让我们马上开始学习Markdown。</p>
-
-<h2>工欲善其事，必先利其器：</h2>
-
-<p>其实任何文本编辑器都可以用来编写Markdown文本，不过我还是要推荐两款个人感觉很不错的编辑器。一个是面向Windows平台的<a href="http://markdownpad.com">Markdownpad</a>，另一个是Mac平台的<a href="http://mouapp.com">Mou</a>。这两款编辑器最大的好处是带有实时预览功能，在左边的编辑器里编写就直接能够在右边的预览里看到效果，非常方便。介绍完编辑器，接下来就正式开始学习Markdown语法。</p>
-
-<h2>Markdown语法：</h2>
-
-<h3>段落和换行</h3>
-
-<p>一个Markdown段落前后必须要有一个以上的空行（空行指没有任何可见字符的行，比如一行只包含空格和制表符，那么该行就是一个空行）。<br/>
-如果想要换行的话，只要在换行处输入两个空格然后回车即可。</p>
-
-<h3>标题</h3>
-
-<p>Markdown支持两种标题的语法，这里主要介绍比较简洁的第二种。在行首插入1到6个#就能对应生成HTML中的1到6号标题，比如：</p>
-
-<pre><code># 这是&lt;h1&gt;  
-## 这是&lt;h2&gt;  
-### 这是&lt;h3&gt;  
-</code></pre>
-
-<h3>引用</h3>
-
-<p>Markdown中的引用类似与email中的引用方式，即在每行开头加上>，比如：</p>
-
-<pre><code>&gt;这是第一段这是第一段这是第一段这是第一段  
-&gt;这是第一段这是第一段这是第一段
-&gt;                        
-&gt;这是第二段这是第二段这是第二段这是第二段  
-</code></pre>
-
-<p>或者更偷懒一些，只在每段的开头加上>。</p>
-
-<pre><code>&gt;这是第一段这是第一段这是第一段这是第一段  
-这是第一段这是第一段这是第一段这是第一段
-这是第一段 
-
-&gt;这是第二段这是第二段这是第二段这是第二段
-这是第二段这是第二段  
-</code></pre>
-
-<p>引用内还可以嵌套引用，只需要根据层次加上不同数量的>：</p>
-
-<pre><code>&gt;第一层引用。  
-&gt;&gt;第二层引用。  
-&gt;&gt;&gt;第三层引用。  
-</code></pre>
-
-<p>另外引用区块内，可以照常使用Markdown的其他语法。</p>
-
-<h3>列表</h3>
-
-<p>Markdown支持有序和无序列表。<br/>
-无序列表可以使用*或者+或者-作为标记；</p>
-
-<pre><code>* 第一行  
-* 第二行  
-* 第三行  
-</code></pre>
-
-<p>或者：</p>
-
-<pre><code>+ 第一行
-+ 第二行
-+ 第三行 
-</code></pre>
-
-<p>或者：</p>
-
-<pre><code>- 第一行  
-- 第二行  
-- 第三行  
-</code></pre>
-
-<p>有序列表使用的是一个数字外加一个英文句点”.”：</p>
-
-<pre><code>1. 第一行  
-2. 第二行  
-3. 第三行  
-</code></pre>
-
-<p>列表中的每一个项目都可包含多个段落，每个段落必须缩进4个空格或者一个制表符。如果要在每个列表项中使用引用，那么>符号就需要缩进：</p>
-
-<pre><code>*  列表第一段列表第一段列表第一段。  
-   列表第一段 
-   列表第二段列表第二段列表第二段     
-   列表第二段  
-*  列表的另一行  
-*  包含引用的项目
-   &gt;引用引用引用
-</code></pre>
-
-<h3>代码块：</h3>
-
-<p>Markdown的语法提供了很方便的代码区块支持。 只要在要添加代码处加一空行（回车再回车）接着缩进4个空格或是一个制表符即可：</p>
-
-<pre><code>这是普通段落。
-
-    这是代码区块。
-    *星号不会被转换
-</code></pre>
-
-<p>在代码快里一般的Markdown语法都不会被转换。<br/>
-如果仅仅只是想标记行内的一小段代码，那可以用反引号“`”把这小段代码包起来：</p>
-
-<pre><code>这是一句话`这是一段代码`这是另外一句话。
-</code></pre>
-
-<h3>强调</h3>
-
-<p>Markdown使用星号"*"和下划线"_"来标记需要强调的字词：</p>
-
-<pre><code>一个星号和一个下划线代表强调：
-*强调强调强调*
-_强调强调强调_
-两个星号和两个下划线代表强调的程度更深，通常是加粗：
-**强调加粗强调加粗**
-__强调加粗强调加粗__
-</code></pre>
-
-<h3>链接</h3>
-
-<p>Markdown标记链接的方式有两种：<br/>
-第一种方法是用方括号[ ]扩起链接的名字，然后紧跟着圆括号中加入网址即可。 如果要显示链接Title，那么在圆括号中的网站之后用双引号把Title包起来即可；</p>
-
-<pre><code>这是一个[链接](http://example.com "Title")。
-</code></pre>
-
-<p>第二种方法，不使用圆括号，而是加上另一个方括号并在里面天上用以标识链接的标记。然后在文件任意处定义这个标记的内容；</p>
-
-<pre><code>这是一个[链接][id]。
-
-在文件任意处：
-[id]: http://example.com "Title"
-</code></pre>
-
-<p>或者偷懒的话，这样也是可以的，把第二个方括号空着，用第一个方括号里的内容标识链接：</p>
-
-<pre><code>这是一个指向[Google][]的链接。
-
-在文件任意处：
-[Google]: http://google.com "Google"
-</code></pre>
-
-<h3>图片</h3>
-
-<p>标记图片的语法和标记链接的语法颇为相似，也是有两种，第一种：
-1. 开头一个惊叹号!
-2. 接着一个方括号，里面是图片的替代文字
-3. 再接着一个圆括号，里面是图片的网址，可以在网址后用双引号写上图片的"Title"</p>
-
-<pre><code>![图片替代文字](http://example.com/image/pic.jpg "title")
-或者是相对路径：
-![图片替代文字](/image/pic.jpg "title")
-</code></pre>
-
-<p>第二种就不详细介绍了，学会链接的第二种方法，这个自然就会了，无非是加了一个感叹号！</p>
-
-<h3>反斜杠 \ 转义</h3>
-
-<p>Markdown允许用反斜杠来插入一些有特殊意义的符号：</p>
-
-<pre><code>在文本中插入星号\*，加号\+，感叹号\!等等
-</code></pre>
-
-<h3>结语</h3>
-
-<p>怎么样Markdown是不是很简单，希望大家通过学习都能掌握这门简单易用的标记语言，写出漂亮的网页文本。注：此博客的所有博文都是使用Markdown编写的，大家可以直接从我的github项目里下载到这些博文。</p>
-]]></content>
-  </entry>
+    <a class='category' href='/blog/categories/programming/'>Programming</a>
   
-</feed>
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://erica.im/blog/2012/09/11/draw-pad-for-iphone/" data-via="qianshijia" data-counturl="http://erica.im/blog/2012/09/11/draw-pad-for-iphone/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/09/10/state-library/" title="Previous Post: 维多利亚州立图书馆">&laquo; 维多利亚州立图书馆</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/09/11/draw-pad-for-iphone/">简单的iPhone画板应用</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/10/state-library/">维多利亚州立图书馆</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/09/melbourne-museeum/">墨尔本博物馆</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/08/my-canvas-using-html5/">用HTML5做了一个简单的画板</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/07/add-weibo-to-sidebar/">给博客添加新浪微博侧边栏</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/qianshijia">@qianshijia</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'qianshijia',
+            count: 4,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("qianshijia", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/qianshijia" class="twitter-follow-button" data-show-count="false">Follow @qianshijia</a>
+  
+</section>
+
+
+<section>
+	<ul id="weibo">
+	<li>
+		<iframe 
+			width="100%" 
+			height="550" 
+			class="share_self"  
+			frameborder="0" 
+			scrolling="no" 
+			src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=&ptype=1&speed=0&skin=2&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=2277930531&verifier=c773826d&dpc=1">
+		</iframe>
+	</li>
+	</ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Eric -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> Running on <a href="http://github.com/qianshijia/qianshijia.github.com">GitHub</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'shijiablog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://erica.im/blog/2012/09/11/draw-pad-for-iphone/';
+        var disqus_url = 'http://erica.im/blog/2012/09/11/draw-pad-for-iphone/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
