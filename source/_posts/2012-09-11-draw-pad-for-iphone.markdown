@@ -1,0 +1,272 @@
+---
+layout: post
+title: "简单的iPhone画板应用"
+date: 2012-09-11 15:58
+comments: true
+categories: Programming
+---
+前天用HTML5和JS做了一个简单的网页版的画图程序，作为一个初级的iOS开发人员（自封的）今天就来实现iPhone上的简单画板应用。
+第一步，打开xCode然后新建工程，这次我们选择SingleView Application模版，然后记得把Use Storyboards和Use Automatic Reference Counting两个选项勾上。
+{% img /images/my_drawpad/new.jpg %}  
+工程新建完毕后，接下来打开Mainstoryboard。然后从右下角的控件栏里连续拖两个UIImageView放到View Controller里，大小设置成全屏。接着把底下的ImageView的名字改成Main ImageView，上面的ImageView名字改成Drawing ImageView以便区分。这里稍稍解释一下这两个ImageView的作用。Drawing ImageView是用来接受用户每一次在屏幕上的“输入”的（手指的滑动）。从用户点击屏幕开始到手指离开屏幕，这样就算是一次“输入”。然后这次“输入”的“内容”就会被画到下面那个Main ImageView上。所以下面的Main ImageView才是真正用来保存用户所画的东西的。
+{% img /images/my_drawpad/imageview.jpg %}   
+然后到ViewController.h里建立两个UIImageView的IBOutlet，并在Mainstoryboard里把这两个Outlet和刚才添加的两个UIImageView联接起来。  
+接下来第二步，我们开始设计主界面。我是这么设计的，所有的按钮都放置在屏幕底部，主要有这四个按钮：清除按钮--用来清楚之前画的所有内容，保存按钮--用来保存所画的图片，橡皮按钮，线条粗细选择按钮和颜色选择按钮。我把我用的[图片]({{site.url}}/files/images.zip)素材都打包了，大家可以直接下载来用。下面是我自己设计的界面以供参考，其中颜色选择和线条粗细选择按钮点击以后会弹出两个菜单供用户选择，实现方法后面介绍。  
+{% img /images/my_drawpad/mainscreen1.jpg %}
+{% img /images/my_drawpad/mainscreen2.jpg %}  
+下面介绍弹出菜单的实现方法。我的实现方法是新建一个UIView然后把菜单里所有的Button添加到这个View里，然后再用addSubview把这个UIView添加到主界面。在这里我用了一个NSMutableDictionary--popoverDictionay来保存建好的UIView，这样每次我们点击按钮就不用重复建立UIView了。
+{% img /images/my_drawpad/popoverview.jpg %}  
+接下来建立两个IBOutlet的UIButton连接到颜色选择和线条选择两个按钮，并建立两个IBAction然后联接到这两个按钮的TouchUpInside事件。下面的代码就是颜色选择按钮点击后的代码，线条按钮的代码类似。
+{% img /images/my_drawpad/colorpickbtn.jpg %}
+{% img /images/my_drawpad/brushbtn.jpg %}  
+然后我们要给每个按钮添加点击事件。  
+{% img /images/my_drawpad/colorpressed.jpg %}   
+每次我们点击弹出菜单的按钮时要做如下操作：（1）设置相关的参数，比如R,G,B的值，线条粗细的值；(2)把菜单按钮的背景改成我们刚选择的按钮的背景。所以我们首先要声明一些成员变量并且在ViewDidLoad里初始化：  
+{% img /images/my_drawpad/attributes.jpg %}
+{% img /images/my_drawpad/init_attr.jpg %}  
+接下来是按钮点击的方法实现：  
+	
+	- (void)colorPressed:(id)sender
+	{
+    
+    UIButton *btn = (UIButton *)sender;
+    switch (btn.tag) 
+    {
+        case 0:
+            red = 255.0 / 255.0;
+            green = 0.0 / 255.0;
+            blue = 0.0 / 255.0;
+            [self.colorPickBtn setBackgroundImage:[btn backgroundImageForState:UIControlStateNormal]  forState:UIControlStateNormal];
+            break;
+        case 1:
+            red = 0.0 / 255.0;
+            green = 255.0 / 255.0;
+            blue = 0.0 / 255.0;
+            [self.colorPickBtn setBackgroundImage:[btn backgroundImageForState:UIControlStateNormal]  forState:UIControlStateNormal];
+            break;
+        case 2:
+            red = 0.0 / 255.0;
+            green = 0.0 / 255.0;
+            blue = 255.0 / 255.0;
+            [self.colorPickBtn setBackgroundImage:[btn backgroundImageForState:UIControlStateNormal]  forState:UIControlStateNormal];
+            break;
+        case 3:
+            red = 255.0 / 255.0;
+            green = 0.0 / 255.0;
+            blue = 255.0 / 255.0;
+            [self.colorPickBtn setBackgroundImage:[btn backgroundImageForState:UIControlStateNormal]  forState:UIControlStateNormal];
+            break;
+        case 4:
+            red = 255.0 / 255.0;
+            green = 255.0 / 255.0;
+            blue = 0.0 / 255.0;
+            [self.colorPickBtn setBackgroundImage:[btn backgroundImageForState:UIControlStateNormal]  forState:UIControlStateNormal];
+            break;
+        case 5:
+            red = 0.0 / 255.0;
+            green = 255.0 / 255.0;
+            blue = 255.0 / 255.0;
+            [self.colorPickBtn setBackgroundImage:[btn backgroundImageForState:UIControlStateNormal]  forState:UIControlStateNormal];
+            break;
+        case 6:
+            red = 0.0 / 255.0;
+            green = 0.0 / 255.0;
+            blue = 0.0 / 255.0;
+            [self.colorPickBtn setBackgroundImage:[btn backgroundImageForState:UIControlStateNormal]  forState:UIControlStateNormal];
+            break;
+    }
+    [self.eraserBtn setBackgroundImage:[UIImage imageNamed:@"eraser.png"] forState:UIControlStateNormal];
+    [self.viewThatPoped removeFromSuperview];
+    self.viewThatPoped = nil;
+	}
+线条粗细按钮的实现方法类似：  
+	
+	- (void)brushPressed:(id)sender
+	{
+    
+    UIButton *btn = (UIButton *)sender;
+    switch (btn.tag) 
+    {
+        case 0:
+            brush = 5.0;
+            [self.brushPickBtn setBackgroundImage:[btn backgroundImageForState:UIControlStateNormal]  forState:UIControlStateNormal];
+            break;
+        case 1:
+            brush = 10.0;
+            [self.brushPickBtn setBackgroundImage:[btn backgroundImageForState:UIControlStateNormal]  forState:UIControlStateNormal];
+        case 2:
+            brush = 15.0;
+            [self.brushPickBtn setBackgroundImage:[btn backgroundImageForState:UIControlStateNormal]  forState:UIControlStateNormal];
+        case 3:
+            brush = 20.0;
+            [self.brushPickBtn setBackgroundImage:[btn backgroundImageForState:UIControlStateNormal]  forState:UIControlStateNormal];
+    }
+    [self.viewThatPoped removeFromSuperview];
+    self.viewThatPoped = nil;
+	}
+接下来我们可以简单的测试一下，没问题的话我们进入下一步，也是最重要的一步，在屏幕上实现绘画功能。在我们的代码里添加一下三个方法：
+	
+	- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event 
+	{
+	
+	}
+ 
+	- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event 
+	{
+	
+	}
+ 
+	- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
+	{
+	
+	}
+从这三个方法的名字上就能看出来是干什么用的，第一个是当手指触到屏幕是调用，第二个方法是手指在屏幕是移动时调用，第三个是当手指抬起时调用。下面我们把具体的代码加到这三个方法里去（代码中已经添加了详细的注释）：  
+	
+	- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+	{
+    fingerMoved = NO;
+    //通过传进来的touches参数获得一个touch对象，然后通过该对象获得我们touch的坐标
+    UITouch *touch = [touches anyObject];
+    lastPoint = [touch locationInView:self.view];
+	}
+
+	- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+	{
+	//如果当前有弹出菜单，则不进行绘画操作
+    if(self.viewThatPoped)
+    {
+        return;
+    }
+    fingerMoved = YES;
+    //获取手指移动后的坐标
+    UITouch *touch = [touches anyObject];
+    CGPoint currentPoint = [touch locationInView:self.view];
+    
+    //开始绘画
+    //首先获得当前的ImageContext，就是所谓的上下文
+    UIGraphicsBeginImageContext(self.view.frame.size);
+    //设定绘画的区域，这里是整个屏幕
+    [self.drawingImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    //和HTML5中的canvas绘画类似，先移动到lastpoint
+    CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
+    //然后在lastpoint和currentpoint之间画线
+    CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), currentPoint.x, currentPoint.y);
+    //设置线的两头的Style，这里设置的是Round，这样会比较好看，我们画出的线条两头都是圆的
+    CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+    //设置线条的宽度，通过参数读取
+    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush);
+    //设置线条的颜色
+    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), red, green, blue, 1.0);
+    CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
+    //画出线条
+    CGContextStrokePath(UIGraphicsGetCurrentContext());
+    //从当前的上下文里获取图像，并设置到drawingImage上
+    self.drawingImage.image = UIGraphicsGetImageFromCurrentImageContext();
+    [self.drawingImage setAlpha:opacity];
+    //结束绘画
+    UIGraphicsEndImageContext();
+    //把lastpoint设置成curentpoint，意味着下次绘画从currentpoint开始
+    lastPoint = currentPoint;
+	}
+
+	- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+	{
+	//如果当前有弹出菜单，则remove掉弹出菜单
+    if(self.viewThatPoped)
+    {
+        [self.viewThatPoped removeFromSuperview];
+        self.viewThatPoped = nil;
+        return;
+    }
+    //如果手指没有移动，那就画一个点
+    if(!fingerMoved) {
+        UIGraphicsBeginImageContext(self.view.frame.size);
+        [self.drawingImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush);
+        CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), red, green, blue, opacity);
+        CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
+        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
+        CGContextStrokePath(UIGraphicsGetCurrentContext());
+        CGContextFlush(UIGraphicsGetCurrentContext());
+        self.drawingImage.image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+    
+    //讲drawingImage的内容保存到我们的MainImage里，然后清空drawingImage
+    UIGraphicsBeginImageContext(self.mainImage.frame.size);
+    [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) blendMode:kCGBlendModeNormal alpha:1.0];
+    [self.drawingImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) blendMode:kCGBlendModeNormal alpha:opacity];
+    self.mainImage.image = UIGraphicsGetImageFromCurrentImageContext();
+    self.drawingImage.image = nil;
+    UIGraphicsEndImageContext();
+	}
+接下来我们测试一下效果：  
+{% img /images/my_drawpad/drawtest.jpg %}  
+下面我们来添加剩下的功能。  
+橡皮功能，很简单，其实就是把当前的颜色设置为白色，R,G,B都设置为255就可以了；
+
+	-(IBAction)eraserPressed
+	{
+    red = 255.0 / 255.0;
+    green = 255.0 / 255.0;
+    blue = 255.0 / 255.0;
+    [self.eraserBtn setBackgroundImage:[UIImage imageNamed:@"eraserpressed.png"] forState:UIControlStateNormal];
+	} 
+清除所有绘画的功能，也相当的简单，我们使用了一个UIAlertView来让用户确认是否要清楚所有的绘画内容：
+	
+	- (IBAction)clearBtnPressed
+	{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Are you sure to clear all the drawings?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
+    [alert show];
+	}
+	
+	//AlertView的delegate方法
+	- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+	{
+    if (buttonIndex == 1)
+    {
+    	//直接设置成nil就可以
+        self.mainImage.image = nil;
+    }
+	}
+最后一个保存到相册的功能，我们使用了UIActionSheet，来让用户确认，并且在保存成功后回调一个函数来告知用户保存成功：
+	
+	- (IBAction)saveBtnPressed
+	{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@""
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"Save to Camera Roll", nil];
+    [actionSheet showInView:self.view];
+	}
+	
+	//actionsheet的delegate方法
+	- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+	{
+    if (buttonIndex == 0)
+    {
+        UIGraphicsBeginImageContextWithOptions(_mainImage.bounds.size, NO,0.0);
+        [_mainImage.image drawInRect:CGRectMake(0, 0, _mainImage.frame.size.width, _mainImage.frame.size.height)];
+        UIImage *SaveImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        UIImageWriteToSavedPhotosAlbum(SaveImage, self,@selector(image:didFinishSavingWithError:contextInfo:), nil);
+    }
+	}
+	
+	//保存完毕后的回调函数
+	- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+	{
+    if (error != NULL)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Image could not be saved.Please try again"  delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Close", nil];
+        [alert show];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Image was successfully saved in photoalbum!"  delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Close", nil];
+        [alert show];
+    }
+	}
+接下来我们最后测试一下看看是不是所有的功能都能不出错。如果不出错的话，恭喜，一个简单的iPhone画板应用完成了。
+这是整个项目的代码，有需要的请自行[下载]({{site.url}}/files/DrawPad.zip)。
+	
