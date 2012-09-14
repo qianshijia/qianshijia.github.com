@@ -1,0 +1,25 @@
+---
+layout: post
+title: "City随拍"
+date: 2012-09-14 14:41
+comments: true
+categories: Blog
+---
+今天去国家艺术馆看拿破仑时期的艺术品展览。发一些一路上拍的照片  
+{% img /images/day_trip/dt1.jpg %}  
+{% img /images/day_trip/dt2.jpg %}
+{% img /images/day_trip/dt3.jpg %}  
+圣保罗大教堂  
+{% img /images/day_trip/dt4.jpg %}
+{% img /images/day_trip/dt5.jpg %}
+{% img /images/day_trip/dt6.jpg %}
+{% img /images/day_trip/dt7.jpg %}
+{% img /images/day_trip/dt8.jpg %}
+{% img /images/day_trip/dt9.jpg %}  
+世界上最高的居民住宅楼88层  
+{% img /images/day_trip/dt10.jpg %}  
+墨尔本的母亲河，雅拉河畔
+{% img /images/day_trip/dt11.jpg %} 
+国家艺术馆  
+{% img /images/day_trip/dt12.jpg %}
+{% img /images/day_trip/dt13.jpg %}
