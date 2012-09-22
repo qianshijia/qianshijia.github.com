@@ -1,0 +1,455 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>简单的UIView Animation - Eric's Blog</title>
+  <meta name="author" content="Eric">
+
+  
+  <meta name="description" content="好几天没更新了，最近一直在学iOS的Quartz2D以及Animation。今天就来分享一下我的学习成果，基于UIView的动画是最简单易学的，一般一天的学习就能作出非常漂亮的动画了。接下来正式开始今天的内容。
+先来简单介绍一下今天要实现的效果，我们要让一个小瓢虫在屏幕上转圈， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://erica.im/blog/2012/09/22/uiview-animation/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Eric's Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-34582397-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Eric's Blog</a></h1>
+  
+    <h2>Another blog powered by Octopress.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:erica.im" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/projects">Projects</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">简单的UIView Animation</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-22T12:33:00+10:00" pubdate data-updated="true">Sep 22<span>nd</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>好几天没更新了，最近一直在学iOS的Quartz2D以及Animation。今天就来分享一下我的学习成果，基于UIView的动画是最简单易学的，一般一天的学习就能作出非常漂亮的动画了。接下来正式开始今天的内容。<br/>
+先来简单介绍一下今天要实现的效果，我们要让一个小瓢虫在屏幕上转圈，并且在每次拐弯的时候把头转向要拐过去的方向。<br/>
+<img src="/images/UIView_Animation/homescreen.jpg"><br/>
+首先新建一个SingleView的工程。然后拖一个Button和一个UIImageView到MainStoryboard。然后在ViewController.h里添加一下代码。</p>
+
+<pre><code>@property (nonatomic, strong) UIImageView *bug;
+@property (nonatomic, strong) IBOutlet UIButton *startBtn;
+
+-(IBAction)startAnimation;
+</code></pre>
+
+<p>然后在MainStoryboard里把这两个属性和IBAction联接到相应的控件。<br/>
+接着下来我们开始做动画。第一步，要让小瓢虫掉个头（转180度）,方法如下：</p>
+
+<pre><code>- (void)faceRight:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:1.0];//设置动画持续时间
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];//设置动画的样式
+    [UIView setAnimationDelegate:self];//设置代理，只有设置了代理下面那个方法才能在动画结束时被调用
+    [UIView setAnimationDidStopSelector:@selector(moveRight:finished:context:)];//动画结束时调用moveRight方法
+    bug.transform = CGAffineTransformMakeRotation(M_PI);//通过对象的transform属性来设置动画，在这里我们要让对象旋转180度即一个PI
+    [UIView commitAnimations];//提交动画
+}
+</code></pre>
+
+<p>怎么样，代码并不复杂吧。然后我们在IBAction里面添加</p>
+
+<pre><code>- (IBAction)startAnimation
+{
+    [self faceRight:nil finished:nil context:nil];
+}
+</code></pre>
+
+<p>运行工程，然后点击按钮测试一下效果。下一步，我们要让小虫从当前位置移动到屏幕的右边。</p>
+
+<pre><code>- (void)moveRight:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:2.0];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(faceDown:finished:context:)];
+    bug.center = CGPointMake(260, bugCenter.y);//改变对象的位置，通过center属性来改变
+    [UIView commitAnimations];
+}
+</code></pre>
+
+<p>这个方法也没什么好解释的。接下去的几个方法都是依样画葫芦：</p>
+
+<pre><code>- (void)faceDown:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:1.0];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(moveDown:finished:context:)];
+    bug.transform = CGAffineTransformMakeRotation(-M_PI_2);
+    [UIView commitAnimations];
+}
+
+- (void)moveDown:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:2.0];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(faceLeft:finished:context:)];
+    bug.center = CGPointMake(260, 97 + 200);
+    [UIView commitAnimations];
+}
+
+- (void)faceLeft:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:1.0];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(moveLeft:finished:context:)];
+    bug.transform = CGAffineTransformMakeRotation(0);
+    [UIView commitAnimations];
+}
+
+- (void)moveLeft:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:2.0];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(faceTop:finished:context:)];
+    bug.center = CGPointMake(bugCenter.x, 297);
+    [UIView commitAnimations];
+}
+
+- (void)faceTop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:1.0];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(moveTop:finished:context:)];
+    bug.transform = CGAffineTransformMakeRotation(M_PI_2);
+    [UIView commitAnimations];
+}
+
+- (void)moveTop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:2.0];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(faceRight:finished:context:)];
+    bug.center = bugCenter;
+    [UIView commitAnimations];
+}
+</code></pre>
+
+<p>然后我们运行测试一下，我们会发现刚开始的掉头和移动到右边没什么问题但是后面一个转头朝下的动画就有问题。小虫子在转得的时候又会回到出发点。这是什么原因呢，我也是在这个问题上纠缠了好久，后来才发现虽然我们给小虫子设置了IBOutlet，但是我们并不能通过bug.center来得到小虫的位置（总是返回（0，0））。我觉得这可能是使用了MainStoryboard的问题（具体原因我还在搜索中），于是我就在ViewDidLoad里添加如下代码，手动给小虫子定位。</p>
+
+<pre><code>- (void)viewDidLoad
+{
+    self.bug = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bug.png"]];
+    self.bug.frame = CGRectMake(30,30, 90, 75);
+    [self.view addSubview:self.bug];
+    bugCenter = bug.center;
+    [super viewDidLoad];
+}
+</code></pre>
+
+<p>然后再运行一下就没有什么问题了。总结一下，UIViewAnimation很简单易用。只要记住在[UIView beginAnimations:nil context:nil]和[UIView commitAnimations]之间添加配置代码以及动画代码就行了。最后祝大家都能作出漂亮的动画效果。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Eric</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-22T12:33:00+10:00" pubdate data-updated="true">Sep 22<span>nd</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programming/'>Programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://erica.im/blog/2012/09/22/uiview-animation/" data-via="qianshijia" data-counturl="http://erica.im/blog/2012/09/22/uiview-animation/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/09/14/day-trip/" title="Previous Post: City随拍">&laquo; City随拍</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/09/22/uiview-animation/">简单的UIView Animation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/14/day-trip/">City随拍</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/13/learning-coredata/">CoreData学习笔记</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/12/one-day/">不平凡的一天</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/11/draw-pad-for-iphone/">简单的iPhone画板应用</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/qianshijia">@qianshijia</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'qianshijia',
+            count: 4,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("qianshijia", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/qianshijia" class="twitter-follow-button" data-show-count="false">Follow @qianshijia</a>
+  
+</section>
+
+
+<section>
+	<ul id="weibo">
+	<li>
+		<iframe 
+			width="100%" 
+			height="550" 
+			class="share_self"  
+			frameborder="0" 
+			scrolling="no" 
+			src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=&ptype=1&speed=0&skin=2&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=2277930531&verifier=c773826d&dpc=1">
+		</iframe>
+	</li>
+	</ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Eric -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> Running on <a href="http://github.com/qianshijia/qianshijia.github.com">GitHub</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'shijiablog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://erica.im/blog/2012/09/22/uiview-animation/';
+        var disqus_url = 'http://erica.im/blog/2012/09/22/uiview-animation/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
