@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Programming | Eric's Blog]]></title>
   <link href="http://erica.im/blog/categories/programming/atom.xml" rel="self"/>
   <link href="http://erica.im/"/>
-  <updated>2012-10-04T08:41:06+10:00</updated>
+  <updated>2012-10-13T00:33:31+11:00</updated>
   <id>http://erica.im/</id>
   <author>
     <name><![CDATA[Eric]]></name>
@@ -14,13 +14,70 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Django CSRF verification failed]]></title>
+    <link href="http://erica.im/blog/2012/10/13/django-csrf-error-fix/"/>
+    <updated>2012-10-13T00:02:00+11:00</updated>
+    <id>http://erica.im/blog/2012/10/13/django-csrf-error-fix</id>
+    <content type="html"><![CDATA[<p>一直想做一个iOS应用推送服务，但是不想用PHP，于是就想到了用Django来写。所以最近一直都在照着<a href="http://www.djangobook.com/">Django Book</a>的教程学习。在学到第七章表单的时候遇到了一个问题。我按照教程上的内容，做了一个表单但是一点提交就出现如下的错误。<br/>
+{% img images/django/error.jpg %}<br/>
+于是Google了一番，网上是这么说的：<br/>
+（1）在<code>&lt;form&gt;</code>里添加<code>{% csrf_token %}</code>：</p>
+
+<pre><code>&lt;form action="." method="post"&gt;
+    {% csrf_token %}
+    &lt;table&gt;
+    {{ form.as_table }}
+    &lt;/table&gt;
+    &lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p>（2）然后在seetings.py中找到MIDDLEWARE_CLASSES并且添加上</p>
+
+<pre><code>'django.middleware.csrf.CsrfViewMiddleware',
+'django.middleware.csrf.CsrfResponseMiddleware',
+</code></pre>
+
+<p>问题就能解决，但是我照做了之后发现以个更厉害的错误。提交表单之后，直接出现  <code>A server error occurred.  Please contact the administrator.</code>于是我就开始瞎捣鼓，我把<code>'django.middleware.csrf.CsrfResponseMiddleware',</code>给去掉以后，上面的这个错误没了，但是还是有CSRF的那个错误。我仔细看了一下错误的说明，发现第二条里提到了<code>RequestContext</code>这么个东西，于是点进去到官网上看，发现在使用Context渲染Template的时候，如果涉及到表单操作则需要使用<code>RequestContext</code>而不是<code>Context</code>。于是照着光网上的例子修改了代码：</p>
+
+<pre><code>return render_to_response('contact_form.html', {'form':form})
+要改成：
+c = RequestContext(request, {
+        'form':form,
+    })
+return render_to_response('contact_form.html', context_instance=c)
+</code></pre>
+
+<p>最终在views.py里应该是这样：</p>
+
+<pre><code>def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            return HttpResponseRedirect('/thanks/')
+    else:
+        form = ContactForm(
+                initial = {'subject':'I love this one!'}
+            )
+    c = RequestContext(request, {
+            'form':form,
+        })
+    return render_to_response('contact_form.html', context_instance=c)
+</code></pre>
+
+<p>再测试一下就没问题了。总结一下，在出现CSRF的错误时，第一步在<code>&lt;form&gt;</code>里添加<code>{% csrf_token %}</code>，第二步在<code>render_to_response</code>里使用<code>RequestContext</code>对象，通过这两部就能解决这个错误。</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[简单的UIView Animation]]></title>
     <link href="http://erica.im/blog/2012/09/22/uiview-animation/"/>
     <updated>2012-09-22T12:33:00+10:00</updated>
     <id>http://erica.im/blog/2012/09/22/uiview-animation</id>
     <content type="html"><![CDATA[<p>好几天没更新了，最近一直在学iOS的Quartz2D以及Animation。今天就来分享一下我的学习成果，基于UIView的动画是最简单易学的，一般一天的学习就能作出非常漂亮的动画了。接下来正式开始今天的内容。<br/>
 先来简单介绍一下今天要实现的效果，我们要让一个小瓢虫在屏幕上转圈，并且在每次拐弯的时候把头转向要拐过去的方向。<br/>
-<img src="/images/UIView_Animation/homescreen.jpg"><br/>
+{% img /images/UIView_Animation/homescreen.jpg %}<br/>
 首先新建一个SingleView的工程。然后拖一个Button和一个UIImageView到MainStoryboard。然后在ViewController.h里添加一下代码。</p>
 
 <pre><code>@property (nonatomic, strong) UIImageView *bug;
@@ -159,9 +216,9 @@
     <content type="html"><![CDATA[<p>最近一段时间一直忙着投简历，主要方向当然是iOS的开发。在看了不下30家的招聘公司的要求之后，发现很多都要求应聘者了解或者掌握CoreData。所以今天就来学习下CoreData基础。我会用一个简单的project来介绍CoreData的基础知识。废话不多说，现在开始。<br/>
 CoreData是为开发者提供的一种简单稳定的数据存储和读取的接口。相比起sqlite 3，它能使代码更简洁，运行效率更高。我们今天做的这个项目很简单，就是有这么两张表，第一章表叫StudentInfo，包含了学生姓名，年龄，性别，以及住址。第二章表叫AddressDetails，包含了街道名，城市名，省，和邮编。应该有人已经能看出来，这张表就是对应着第一张表里的住址。所以这两张表是一对一的关系。好了，如果我们用数据库的话，第一步肯定就是建表啦，然后还要敲一大堆SQL代码。我最烦SQL代码，因为很容易打错，尤其是语句很长的时候。CoreData就很好的帮我们解决了这个问题。请看：<br/>
 第一步还是新建工程，为了方便我们这里直接选择Master-Detail Applications。项目名称就叫StudentManagementSystem吧， Class Prefix输入SMS，然后device选iPhone。<br/>
-<img src="/images/learning_coredata/newproj.jpg"><br/>
+{% img /images/learning_coredata/newproj.jpg %}<br/>
 注意下面的方框要勾选前面三个：Use Storyboards, Use Core Data, Use Automatic Reference Counting。<br/>
-<img src="/images/learning_coredata/projdetail.jpg"><br/>
+{% img /images/learning_coredata/projdetail.jpg %}<br/>
 接下来我们要先对工程做一些修改。首先删除以下4个文件，直接选择move to trash：</p>
 
 <ul>
@@ -173,7 +230,7 @@ CoreData是为开发者提供的一种简单稳定的数据存储和读取的接
 
 
 <p>然后新建一个文件叫SMSMasterViewController，subclass选择UITableViewController，注意下面两个选项都不要勾选，然后确定。<br/>
-<img src="/images/learning_coredata/masterview.jpg"><br/>
+{% img /images/learning_coredata/masterview.jpg %}<br/>
 在SMSMasterViewController.h里添加一个属性：</p>
 
 <pre><code>@property (nanotomic,strong) NSManagedObjectContext *managedObjectContext;
@@ -199,17 +256,17 @@ CoreData是为开发者提供的一种简单稳定的数据存储和读取的接
 
 
 <p>我们下面就来看看xCode提供给我们的可视化编辑器，用来方便快捷的编辑我们想要的NSManagedObjectModel。在左边的工程目录里找到StudentManagementSystem.xcdatamodeld，点击它，并且在左下角的Editor Style里选到右边的那个选项。<br/>
-<img src="/images/learning_coredata/editor.jpg"><br/>
+{% img /images/learning_coredata/editor.jpg %}<br/>
 我们先点选可视化编辑框里的那个已经存在的Entity，然后把它删掉。接下去我们一步步来添加一个Entity。点击Add Entity，然后命名为StudentInfo。<br/>
-<img src="/images/learning_coredata/addentity.jpg"><br/>
+{% img /images/learning_coredata/addentity.jpg %}<br/>
 我们可以看到它包含了attributes和relationship两栏。接下来我们给它添加attributes，在图形化界面中选中这个Entity并且点击Add Attribute不放，在弹出菜单里选择Add Attribute。<br/>
-<img src="/images/learning_coredata/addattr.jpg">
+{% img /images/learning_coredata/addattr.jpg %}
 然后在图形界面里选中我们刚创建的Attribute，在右边的编辑区域里把Name改成name，把Attribute Type改成string。接着用同样的方法创建age和gender，注意age的type我们用Integer32。
-<img src="/images/learning_coredata/nameattr.jpg"><br/>
+{% img /images/learning_coredata/nameattr.jpg %}<br/>
 属性添加完毕后，接着依样画葫芦把另一个Entity，AddressDetails也创建好。完成后屏幕上应该是这样：<br/>
-<img src="/images/learning_coredata/attrdone.jpg"><br/>
+{% img /images/learning_coredata/attrdone.jpg %}<br/>
 开头我们就说了，这两个entity（表）之间是一对一的关系，接下来我们就来创建这种关系。选中StudentInfo，点击Add Attribute不放，在弹出菜单里选择Add Relationship。把这个relationship改名为address，并且Destination选择AddressDetails。然后，因为苹果建议我们每当创建一个relationship的同时创建一个反向的relationship。选中AddressDetails添加Relationship改名为studentinfo，destination为StudentInfo，然后Inverse选择我们刚创建的address。完成后界面就是这样的：<br/>
-<img src="/images/learning_coredata/reladone.jpg"><br/>
+{% img /images/learning_coredata/reladone.jpg %}<br/>
 下面一步，我们从测试中来学习CoreData的工作机制。首先我们添加几条数据，在AppDelegate里的application:didFinishLaunchingWithOptions方法里添加如下代码：</p>
 
 <pre><code>NSManagedObjectContext *context = self.managedObjectContext;
@@ -255,9 +312,9 @@ for(NSManagedObject *stuInfo in fetechedResults)
 </code></pre>
 
 <p>阅读上面的代码我们可以发现，我们不仅能获取到StudentInfo这个Entity里的值还能通过我们刚才创建的relationship，获取AddressDetails这个Entity，非常的方便。接下来我们运行一下看看结果，注意这时候模拟器上不会有任何的显示，我们要看Log里的输出。OK，结果正确。<br/>
-<img src="/images/learning_coredata/result1.jpg"><br/>
+{% img /images/learning_coredata/result1.jpg %}<br/>
 到目前为止，我们用的都是NSManagedObject的对象来描述我们的Entity，其实还有一个更好的办法就是为每个Entity创建Model。xCode同样提供了非常方便的方法来达到这个目的。回到StudentManagementSystem.xcdatamodeld，选中StudentInfo这个Entity然后在顶上的菜单栏里选择File->New File->Core Data->NSManagedObject subclass。然后确定，xCode就为我们创建好了一个Model。重复同样的步骤为AddressInfo也创建Model。<br/>
-<img src="/images/learning_coredata/simodel.jpg"> <br/>
+{% img /images/learning_coredata/simodel.jpg %} <br/>
 接下来找到StudentInfo.h我们发现里面有个property还是NSManagedObject对象，这是因为我们在创建StudentInfo这个Model的时候AddressDetails这个Model还不存在，所以系统不知道它的类型，只能把它归为NSManagedObject的对象。很简单，我们重新创建一个StudentInfo的Model并且覆盖原来的就可以了。<br/>
 接下来我们把刚才上面贴的两段代码改成下面的：</p>
 
@@ -301,7 +358,7 @@ for(StudentInfo *stuInfo in fetechedResults)
 </code></pre>
 
 <p>接着运行下看看结果：<br/>
-<img src="/images/learning_coredata/result2.jpg"><br/>
+{% img /images/learning_coredata/result2.jpg %}<br/>
 OK，两条输出，没有任何问题。接下来大家可以自己添加一个TableView的输出把数据库里的数据逐条显示在TableView里，这里我就不做了。今天的学习到此结束。</p>
 ]]></content>
   </entry>
@@ -313,23 +370,23 @@ OK，两条输出，没有任何问题。接下来大家可以自己添加一个
     <id>http://erica.im/blog/2012/09/11/draw-pad-for-iphone</id>
     <content type="html"><![CDATA[<p>前天用HTML5和JS做了一个简单的网页版的画图程序，作为一个初级的iOS开发人员（自封的）今天就来实现iPhone上的简单画板应用。
 第一步，打开xCode然后新建工程，这次我们选择SingleView Application模版，然后记得把Use Storyboards和Use Automatic Reference Counting两个选项勾上。
-<img src="/images/my_drawpad/new.jpg"><br/>
+{% img /images/my_drawpad/new.jpg %}<br/>
 工程新建完毕后，接下来打开Mainstoryboard。然后从右下角的控件栏里连续拖两个UIImageView放到View Controller里，大小设置成全屏。接着把底下的ImageView的名字改成Main ImageView，上面的ImageView名字改成Drawing ImageView以便区分。这里稍稍解释一下这两个ImageView的作用。Drawing ImageView是用来接受用户每一次在屏幕上的“输入”的（手指的滑动）。从用户点击屏幕开始到手指离开屏幕，这样就算是一次“输入”。然后这次“输入”的“内容”就会被画到下面那个Main ImageView上。所以下面的Main ImageView才是真正用来保存用户所画的东西的。
-<img src="/images/my_drawpad/imageview.jpg"> <br/>
+{% img /images/my_drawpad/imageview.jpg %} <br/>
 然后到ViewController.h里建立两个UIImageView的IBOutlet，并在Mainstoryboard里把这两个Outlet和刚才添加的两个UIImageView联接起来。<br/>
-接下来第二步，我们开始设计主界面。我是这么设计的，所有的按钮都放置在屏幕底部，主要有这四个按钮：清除按钮--用来清楚之前画的所有内容，保存按钮--用来保存所画的图片，橡皮按钮，线条粗细选择按钮和颜色选择按钮。我把我用的<a href="http://erica.im/files/images.zip">图片</a>素材都打包了，大家可以直接下载来用。下面是我自己设计的界面以供参考，其中颜色选择和线条粗细选择按钮点击以后会弹出两个菜单供用户选择，实现方法后面介绍。<br/>
-<img src="/images/my_drawpad/mainscreen1.jpg">
-<img src="/images/my_drawpad/mainscreen2.jpg"><br/>
+接下来第二步，我们开始设计主界面。我是这么设计的，所有的按钮都放置在屏幕底部，主要有这四个按钮：清除按钮--用来清楚之前画的所有内容，保存按钮--用来保存所画的图片，橡皮按钮，线条粗细选择按钮和颜色选择按钮。我把我用的<a href="{{site.url}}/files/images.zip">图片</a>素材都打包了，大家可以直接下载来用。下面是我自己设计的界面以供参考，其中颜色选择和线条粗细选择按钮点击以后会弹出两个菜单供用户选择，实现方法后面介绍。<br/>
+{% img /images/my_drawpad/mainscreen1.jpg %}
+{% img /images/my_drawpad/mainscreen2.jpg %}<br/>
 下面介绍弹出菜单的实现方法。我的实现方法是新建一个UIView然后把菜单里所有的Button添加到这个View里，然后再用addSubview把这个UIView添加到主界面。在这里我用了一个NSMutableDictionary--popoverDictionay来保存建好的UIView，这样每次我们点击按钮就不用重复建立UIView了。
-<img src="/images/my_drawpad/popoverview.jpg"><br/>
+{% img /images/my_drawpad/popoverview.jpg %}<br/>
 接下来建立两个IBOutlet的UIButton连接到颜色选择和线条选择两个按钮，并建立两个IBAction然后联接到这两个按钮的TouchUpInside事件。下面的代码就是颜色选择按钮点击后的代码，线条按钮的代码类似。
-<img src="/images/my_drawpad/colorpickbtn.jpg">
-<img src="/images/my_drawpad/brushbtn.jpg"><br/>
+{% img /images/my_drawpad/colorpickbtn.jpg %}
+{% img /images/my_drawpad/brushbtn.jpg %}<br/>
 然后我们要给每个按钮添加点击事件。<br/>
-<img src="/images/my_drawpad/colorpressed.jpg"> <br/>
+{% img /images/my_drawpad/colorpressed.jpg %} <br/>
 每次我们点击弹出菜单的按钮时要做如下操作：（1）设置相关的参数，比如R,G,B的值，线条粗细的值；(2)把菜单按钮的背景改成我们刚选择的按钮的背景。所以我们首先要声明一些成员变量并且在ViewDidLoad里初始化：<br/>
-<img src="/images/my_drawpad/attributes.jpg">
-<img src="/images/my_drawpad/init_attr.jpg"><br/>
+{% img /images/my_drawpad/attributes.jpg %}
+{% img /images/my_drawpad/init_attr.jpg %}<br/>
 接下来是按钮点击的方法实现：</p>
 
 <pre><code>- (void)colorPressed:(id)sender
@@ -516,7 +573,7 @@ UIGraphicsEndImageContext();
 </code></pre>
 
 <p>接下来我们测试一下效果：<br/>
-<img src="/images/my_drawpad/drawtest.jpg"><br/>
+{% img /images/my_drawpad/drawtest.jpg %}<br/>
 下面我们来添加剩下的功能。<br/>
 橡皮功能，很简单，其实就是把当前的颜色设置为白色，R,G,B都设置为255就可以了；</p>
 
@@ -588,7 +645,7 @@ if (error != NULL)
 </code></pre>
 
 <p>接下来我们最后测试一下看看是不是所有的功能都能不出错。如果不出错的话，恭喜，一个简单的iPhone画板应用完成了。
-这是整个项目的代码，有需要的请自行<a href="http://erica.im/files/DrawPad.zip">下载</a>。</p>
+这是整个项目的代码，有需要的请自行<a href="{{site.url}}/files/DrawPad.zip">下载</a>。</p>
 ]]></content>
   </entry>
   
@@ -603,42 +660,6 @@ if (error != NULL)
 
 
 <p><a href="/my-canvas">点击这里看效果</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[给博客添加新浪微博侧边栏]]></title>
-    <link href="http://erica.im/blog/2012/09/07/add-weibo-to-sidebar/"/>
-    <updated>2012-09-07T13:26:00+10:00</updated>
-    <id>http://erica.im/blog/2012/09/07/add-weibo-to-sidebar</id>
-    <content type="html"><![CDATA[<p>今天闲得无聊，就想把博客的内容弄得再丰富一点。<a href="http://octopress.org">Octopress</a>已经提供了丰富的侧边栏widget，比如Twitter，Google Plus，GitHub Repo等等，只需要在<em>config.yml里配置一下用户名就可以了。但是考虑到天朝强大的防火墙的存在，所以我准备把新浪微博的侧边栏给添加进来。<br/>
-新浪微博已经提供了可以定制的微博侧边栏叫<a href="http://http://weibo.com/tool/weiboshow">微博秀</a>，这个工具就能够帮我们直接生成一个微博的侧边栏，非常方便。系统会自动给我们生成一个iframe，接下来我们就要把这个iframe添加到我们的博客侧边栏中去。<br/>
-首先，在博客所处的本地文件夹中找到source/</em>includes/asides，在这个文件夹下建立weibo.html。用编辑器打开这个文件，然后输入：</p>
-
-<script src="https://gist.github.com/3662995.js"> </script>
-
-
-<p></p>
-
-<p>其中iframe那块代码就是刚才微博秀给我们生成的代码，不过为了能更方便地通过<em>config.yml来配置，我们用一些变量来替代了原有的值。然后到</em>config.yml中添加如下配置：</p>
-
-<pre><code># Sina Weibo
-# 微博uid和verifier，可以在iframe中的src参数里找到
-weibo_uid: 2277930531
-weibo_verifier: c773826d
-# 显示粉丝的行数：1-7行
-weibo_fansrow: 1
-# 是否显示缩略图
-weibo_picshow: true
-# 配色方案：新浪提供了1-10种不同的配色方案
-weibo_skin: 2
-# 是否显示微博内容
-weibo_showcontent: true
-# 是否在底部显示粉丝栏
-weibo_showfans: false
-</code></pre>
-
-<p>好了接下来只要generate然后deploy就可以了。</p>
 ]]></content>
   </entry>
   

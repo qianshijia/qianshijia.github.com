@@ -9,7 +9,8 @@
   <meta name="author" content="Eric">
 
   
-  <meta name="description" content="今天一早起来在邮箱里发现的，不解释，哈哈！ ">
+  <meta name="description" content="一直想做一个iOS应用推送服务，但是不想用PHP，于是就想到了用Django来写。所以最近一直都在照着Django Book的教程学习。在学到第七章表单的时候遇到了一个问题。我按照教程上的内容，做了一个表单但是一点提交就出现如下的错误。
+{% img images/django/error.jpg &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +81,92 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/13/django-csrf-error-fix/">Django CSRF Verification Failed</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-13T00:02:00+11:00" pubdate data-updated="true">Oct 13<span>th</span>, 2012</time>
+        
+         | <a href="/blog/2012/10/13/django-csrf-error-fix/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>一直想做一个iOS应用推送服务，但是不想用PHP，于是就想到了用Django来写。所以最近一直都在照着<a href="http://www.djangobook.com/">Django Book</a>的教程学习。在学到第七章表单的时候遇到了一个问题。我按照教程上的内容，做了一个表单但是一点提交就出现如下的错误。<br/>
+{% img images/django/error.jpg %}<br/>
+于是Google了一番，网上是这么说的：<br/>
+（1）在<code>&lt;form&gt;</code>里添加<code>{% csrf_token %}</code>：</p>
+
+<pre><code>&lt;form action="." method="post"&gt;
+    {% csrf_token %}
+    &lt;table&gt;
+    {{ form.as_table }}
+    &lt;/table&gt;
+    &lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p>（2）然后在seetings.py中找到MIDDLEWARE_CLASSES并且添加上</p>
+
+<pre><code>'django.middleware.csrf.CsrfViewMiddleware',
+'django.middleware.csrf.CsrfResponseMiddleware',
+</code></pre>
+
+<p>问题就能解决，但是我照做了之后发现以个更厉害的错误。提交表单之后，直接出现  <code>A server error occurred.  Please contact the administrator.</code>于是我就开始瞎捣鼓，我把<code>'django.middleware.csrf.CsrfResponseMiddleware',</code>给去掉以后，上面的这个错误没了，但是还是有CSRF的那个错误。我仔细看了一下错误的说明，发现第二条里提到了<code>RequestContext</code>这么个东西，于是点进去到官网上看，发现在使用Context渲染Template的时候，如果涉及到表单操作则需要使用<code>RequestContext</code>而不是<code>Context</code>。于是照着光网上的例子修改了代码：</p>
+
+<pre><code>return render_to_response('contact_form.html', {'form':form})
+要改成：
+c = RequestContext(request, {
+        'form':form,
+    })
+return render_to_response('contact_form.html', context_instance=c)
+</code></pre>
+
+<p>最终在views.py里应该是这样：</p>
+
+<pre><code>def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            return HttpResponseRedirect('/thanks/')
+    else:
+        form = ContactForm(
+                initial = {'subject':'I love this one!'}
+            )
+    c = RequestContext(request, {
+            'form':form,
+        })
+    return render_to_response('contact_form.html', context_instance=c)
+</code></pre>
+
+<p>再测试一下就没问题了。总结一下，在出现CSRF的错误时，第一步在<code>&lt;form&gt;</code>里添加<code>{% csrf_token %}</code>，第二步在<code>render_to_response</code>里使用<code>RequestContext</code>对象，通过这两部就能解决这个错误。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1030,49 +1117,6 @@ if (error != NULL)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/09/08/my-canvas-using-html5/">用HTML5做了一个简单的画板</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-08T22:40:00+10:00" pubdate data-updated="true">Sep 8<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/09/08/my-canvas-using-html5/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>感觉死盯着手机开发貌似在澳洲的机会并不多，澳洲最多的还是WEB开发。所以今天就心血来潮的用HTML5现学现卖做了个非常简单的画板，程序写的很简陋也很乱，大家将就着看吧。</p>
-
-<script src="https://gist.github.com/3674531.js"> </script>
-
-
-<p><a href="/my-canvas">点击这里看效果</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1088,6 +1132,10 @@ if (error != NULL)
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/10/13/django-csrf-error-fix/">Django CSRF verification failed</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/10/04/pr-granted/">不解释，哈哈</a>
       </li>
     
@@ -1101,10 +1149,6 @@ if (error != NULL)
     
       <li class="post">
         <a href="/blog/2012/09/14/day-trip/">City随拍</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/09/13/learning-coredata/">CoreData学习笔记</a>
       </li>
     
   </ul>

@@ -61,16 +61,20 @@
         <lastmod>2012-10-04T08:40:49+10:00</lastmod>
     </url>
     <url>
+        <loc>http://erica.im/blog/2012/10/13/django-csrf-error-fix/</loc>
+        <lastmod>2012-10-13T00:33:30+11:00</lastmod>
+    </url>
+    <url>
         <loc>http://erica.im/about/</loc>
         <lastmod>2012-09-06T09:13:28+10:00</lastmod>
     </url>
     <url>
         <loc>http://erica.im/blog/archives/</loc>
-        <lastmod>2012-10-04T08:40:49+10:00</lastmod>
+        <lastmod>2012-10-13T00:33:30+11:00</lastmod>
     </url>
     <url>
         <loc>http://erica.im/</loc>
-        <lastmod>2012-10-04T08:40:49+10:00</lastmod>
+        <lastmod>2012-10-13T00:33:30+11:00</lastmod>
     </url>
     <url>
         <loc>http://erica.im/my-resume/</loc>

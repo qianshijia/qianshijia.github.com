@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>墨尔本博物馆 - Eric's Blog</title>
+  <title>Django CSRF verification failed - Eric's Blog</title>
   <meta name="author" content="Eric">
 
   
-  <meta name="description" content="在刮了两天风下了两天雨之后，今天终于放晴了，就想着不能老这么在家呆着啊，应该走出去晃晃。于是上Google Map搜看看附近有没有什么好玩的地方。不搜不知道，果然隔着两条街就是墨尔本博物馆。这还等什么，吃完中饭马上动身。博物馆坐落在一个很大的公园里，对面就是展览中心，直接上图吧。 &hellip;">
+  <meta name="description" content="一直想做一个iOS应用推送服务，但是不想用PHP，于是就想到了用Django来写。所以最近一直都在照着Django Book的教程学习。在学到第七章表单的时候遇到了一个问题。我按照教程上的内容，做了一个表单但是一点提交就出现如下的错误。
+{% img images/django/error.jpg &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://erica.im/blog/2012/09/09/melbourne-museeum/">
+  <link rel="canonical" href="http://erica.im/blog/2012/10/13/django-csrf-error-fix/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -83,7 +84,7 @@
   
   <header>
     
-      <h1 class="entry-title">墨尔本博物馆</h1>
+      <h1 class="entry-title">Django CSRF Verification Failed</h1>
     
     
       <p class="meta">
@@ -99,7 +100,7 @@
   
 
 
-<time datetime="2012-09-09T16:33:00+10:00" pubdate data-updated="true">Sep 9<span>th</span>, 2012</time>
+<time datetime="2012-10-13T00:02:00+11:00" pubdate data-updated="true">Oct 13<span>th</span>, 2012</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -108,28 +109,55 @@
   </header>
 
 
-<div class="entry-content"><p>在刮了两天风下了两天雨之后，今天终于放晴了，就想着不能老这么在家呆着啊，应该走出去晃晃。于是上Google Map搜看看附近有没有什么好玩的地方。不搜不知道，果然隔着两条街就是墨尔本博物馆。这还等什么，吃完中饭马上动身。博物馆坐落在一个很大的公园里，对面就是展览中心，直接上图吧。
-<img src="/images/melbourne_museum/mm1.jpg">
-<img src="/images/melbourne_museum/mm2.jpg">
-<img src="/images/melbourne_museum/mm3.jpg"><br/>
-这是博物馆对面的展览中心，看介绍是德国人在1880年墨尔本世博会的时候造的，相当于那个时候的德国馆。但我总觉得这个展览中心看起来象清真寺：
-<img src="/images/melbourne_museum/mm4.jpg">
-<img src="/images/melbourne_museum/mm5.jpg">
-<img src="/images/melbourne_museum/mm6.jpg">
-进了博物馆发现正好有个关于美索不达米亚文明的展览，二话不说就买了联票。展览的第一部分就说美索不达米亚平原是文字的发源地，最早能追溯到公元前3500年。中华文明是5000年也就是差不多公元前3000年，那看来确实是他们早。当时的人们虽然刚发明了文字，但是主要的记事方法还是图画，刻在石头上的图画。还真是不得不佩服古文明，5500年前就能在巨大的石板上刻画，还能刻地那么精细。其中最令我震撼的是汉默拉比法典，因为很早就在周杰伦的爱在西元前里听到过。亲眼一看确实NB，一个黑黑的大概两米高的石柱上刻满了当时的文字，然后在石柱顶端是上帝和当时的帝王。介绍上说这个法典大部分条款是遵循一个原则来编写的，就是以牙还牙，以眼还眼。接下来的巴比伦文明展纠正了我犯了20多年的错误，我一直以为咱们的万里长城是世界7大奇迹之一。今天才知道，世界7大奇迹其实早在公元前1000多年的时候就被一个古埃及的学者提出来，所以只包括了当时两河流域的一些宏伟的建筑，就算在那个年代长城早就早好了人家古埃及人也不可能知道。整个展览我都认认真真的看完，确实不错。可惜不准照相，因为很多展品都是真品，平时看不到的。
-接下去的现代馆就没什么好说的了，看照片吧。
-<img src="/images/melbourne_museum/mm7.jpg">
-<img src="/images/melbourne_museum/mm8.jpg">
-<img src="/images/melbourne_museum/mm9.jpg">
-<img src="/images/melbourne_museum/mm10.jpg">
-<img src="/images/melbourne_museum/mm11.jpg">
-<img src="/images/melbourne_museum/mm12.jpg">
-<img src="/images/melbourne_museum/mm13.jpg">
-<img src="/images/melbourne_museum/mm14.jpg">
-<img src="/images/melbourne_museum/mm15.jpg"><br/>
-接下来是我个人最喜欢的展品，澳洲第一台计算机，也是目前世界上唯一的还能正常运行的第一代计算机。这台计算机叫CSIRAC，建于1949年，1967年退役，占地40平方米相当霸气。运算速度不及现在的普通家庭计算机的百万分之一。
-<img src="/images/melbourne_museum/mm16.jpg">
-<img src="/images/melbourne_museum/mm17.jpg"></p>
+<div class="entry-content"><p>一直想做一个iOS应用推送服务，但是不想用PHP，于是就想到了用Django来写。所以最近一直都在照着<a href="http://www.djangobook.com/">Django Book</a>的教程学习。在学到第七章表单的时候遇到了一个问题。我按照教程上的内容，做了一个表单但是一点提交就出现如下的错误。<br/>
+{% img images/django/error.jpg %}<br/>
+于是Google了一番，网上是这么说的：<br/>
+（1）在<code>&lt;form&gt;</code>里添加<code>{% csrf_token %}</code>：</p>
+
+<pre><code>&lt;form action="." method="post"&gt;
+    {% csrf_token %}
+    &lt;table&gt;
+    {{ form.as_table }}
+    &lt;/table&gt;
+    &lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p>（2）然后在seetings.py中找到MIDDLEWARE_CLASSES并且添加上</p>
+
+<pre><code>'django.middleware.csrf.CsrfViewMiddleware',
+'django.middleware.csrf.CsrfResponseMiddleware',
+</code></pre>
+
+<p>问题就能解决，但是我照做了之后发现以个更厉害的错误。提交表单之后，直接出现  <code>A server error occurred.  Please contact the administrator.</code>于是我就开始瞎捣鼓，我把<code>'django.middleware.csrf.CsrfResponseMiddleware',</code>给去掉以后，上面的这个错误没了，但是还是有CSRF的那个错误。我仔细看了一下错误的说明，发现第二条里提到了<code>RequestContext</code>这么个东西，于是点进去到官网上看，发现在使用Context渲染Template的时候，如果涉及到表单操作则需要使用<code>RequestContext</code>而不是<code>Context</code>。于是照着光网上的例子修改了代码：</p>
+
+<pre><code>return render_to_response('contact_form.html', {'form':form})
+要改成：
+c = RequestContext(request, {
+        'form':form,
+    })
+return render_to_response('contact_form.html', context_instance=c)
+</code></pre>
+
+<p>最终在views.py里应该是这样：</p>
+
+<pre><code>def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            return HttpResponseRedirect('/thanks/')
+    else:
+        form = ContactForm(
+                initial = {'subject':'I love this one!'}
+            )
+    c = RequestContext(request, {
+            'form':form,
+        })
+    return render_to_response('contact_form.html', context_instance=c)
+</code></pre>
+
+<p>再测试一下就没问题了。总结一下，在出现CSRF的错误时，第一步在<code>&lt;form&gt;</code>里添加<code>{% csrf_token %}</code>，第二步在<code>render_to_response</code>里使用<code>RequestContext</code>对象，通过这两部就能解决这个错误。</p>
 </div>
 
 
@@ -152,12 +180,12 @@
   
 
 
-<time datetime="2012-09-09T16:33:00+10:00" pubdate data-updated="true">Sep 9<span>th</span>, 2012</time>
+<time datetime="2012-10-13T00:02:00+11:00" pubdate data-updated="true">Oct 13<span>th</span>, 2012</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/blog/'>Blog</a>
+    <a class='category' href='/blog/categories/programming/'>Programming</a>
   
 </span>
 
@@ -166,7 +194,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://erica.im/blog/2012/09/09/melbourne-museeum/" data-via="qianshijia" data-counturl="http://erica.im/blog/2012/09/09/melbourne-museeum/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://erica.im/blog/2012/10/13/django-csrf-error-fix/" data-via="qianshijia" data-counturl="http://erica.im/blog/2012/10/13/django-csrf-error-fix/" >Tweet</a>
   
   
   
@@ -177,10 +205,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/09/08/my-canvas-using-html5/" title="Previous Post: 用HTML5做了一个简单的画板">&laquo; 用HTML5做了一个简单的画板</a>
+        <a class="basic-alignment left" href="/blog/2012/10/04/pr-granted/" title="Previous Post: 不解释，哈哈">&laquo; 不解释，哈哈</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/09/10/state-library/" title="Next Post: 维多利亚州立图书馆">维多利亚州立图书馆 &raquo;</a>
       
     </p>
   </footer>
@@ -304,8 +330,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://erica.im/blog/2012/09/09/melbourne-museeum/';
-        var disqus_url = 'http://erica.im/blog/2012/09/09/melbourne-museeum/';
+        var disqus_identifier = 'http://erica.im/blog/2012/10/13/django-csrf-error-fix/';
+        var disqus_url = 'http://erica.im/blog/2012/10/13/django-csrf-error-fix/';
         var disqus_script = 'embed.js';
       
     (function () {
