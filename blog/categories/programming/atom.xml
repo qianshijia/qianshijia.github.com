@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Programming | Eric's Blog]]></title>
   <link href="http://erica.im/blog/categories/programming/atom.xml" rel="self"/>
   <link href="http://erica.im/"/>
-  <updated>2012-10-13T00:33:31+11:00</updated>
+  <updated>2012-10-13T01:00:22+11:00</updated>
   <id>http://erica.im/</id>
   <author>
     <name><![CDATA[Eric]]></name>
@@ -14,14 +14,14 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Django CSRF verification failed]]></title>
-    <link href="http://erica.im/blog/2012/10/13/django-csrf-error-fix/"/>
-    <updated>2012-10-13T00:02:00+11:00</updated>
-    <id>http://erica.im/blog/2012/10/13/django-csrf-error-fix</id>
+    <title type="html"><![CDATA[Django CSRF Validation Failed]]></title>
+    <link href="http://erica.im/blog/2012/10/13/django-csrf-validation-failed/"/>
+    <updated>2012-10-13T00:48:00+11:00</updated>
+    <id>http://erica.im/blog/2012/10/13/django-csrf-validation-failed</id>
     <content type="html"><![CDATA[<p>一直想做一个iOS应用推送服务，但是不想用PHP，于是就想到了用Django来写。所以最近一直都在照着<a href="http://www.djangobook.com/">Django Book</a>的教程学习。在学到第七章表单的时候遇到了一个问题。我按照教程上的内容，做了一个表单但是一点提交就出现如下的错误。<br/>
-{% img images/django/error.jpg %}<br/>
+<img src="../images/django/error.jpg" alt="" /><br/>
 于是Google了一番，网上是这么说的：<br/>
-（1）在<code>&lt;form&gt;</code>里添加<code>{% csrf_token %}</code>：</p>
+(1)在<code>&lt;form&gt;</code>里添加<code>{% csrf_token %}</code>：</p>
 
 <pre><code>&lt;form action="." method="post"&gt;
     {% csrf_token %}
@@ -32,7 +32,7 @@
 &lt;/form&gt;
 </code></pre>
 
-<p>（2）然后在seetings.py中找到MIDDLEWARE_CLASSES并且添加上</p>
+<p>(2)然后在seetings.py中找到MIDDLEWARE_CLASSES并且添加上</p>
 
 <pre><code>'django.middleware.csrf.CsrfViewMiddleware',
 'django.middleware.csrf.CsrfResponseMiddleware',

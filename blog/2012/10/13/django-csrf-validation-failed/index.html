@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Django CSRF verification failed - Eric's Blog</title>
+  <title>Django CSRF Validation Failed - Eric's Blog</title>
   <meta name="author" content="Eric">
 
   
-  <meta name="description" content="一直想做一个iOS应用推送服务，但是不想用PHP，于是就想到了用Django来写。所以最近一直都在照着Django Book的教程学习。在学到第七章表单的时候遇到了一个问题。我按照教程上的内容，做了一个表单但是一点提交就出现如下的错误。
-{% img images/django/error.jpg &hellip;">
+  <meta name="description" content="一直想做一个iOS应用推送服务，但是不想用PHP，于是就想到了用Django来写。所以最近一直都在照着Django Book的教程学习。在学到第七章表单的时候遇到了一个问题。我按照教程上的内容，做了一个表单但是一点提交就出现如下的错误。 于是Google了一番，网上是这么说的：
+(1)在&lt; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://erica.im/blog/2012/10/13/django-csrf-error-fix/">
+  <link rel="canonical" href="http://erica.im/blog/2012/10/13/django-csrf-validation-failed/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -84,7 +84,7 @@
   
   <header>
     
-      <h1 class="entry-title">Django CSRF Verification Failed</h1>
+      <h1 class="entry-title">Django CSRF Validation Failed</h1>
     
     
       <p class="meta">
@@ -100,7 +100,7 @@
   
 
 
-<time datetime="2012-10-13T00:02:00+11:00" pubdate data-updated="true">Oct 13<span>th</span>, 2012</time>
+<time datetime="2012-10-13T00:48:00+11:00" pubdate data-updated="true">Oct 13<span>th</span>, 2012</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -110,9 +110,9 @@
 
 
 <div class="entry-content"><p>一直想做一个iOS应用推送服务，但是不想用PHP，于是就想到了用Django来写。所以最近一直都在照着<a href="http://www.djangobook.com/">Django Book</a>的教程学习。在学到第七章表单的时候遇到了一个问题。我按照教程上的内容，做了一个表单但是一点提交就出现如下的错误。<br/>
-{% img images/django/error.jpg %}<br/>
+<img src="../images/django/error.jpg" alt="" /><br/>
 于是Google了一番，网上是这么说的：<br/>
-（1）在<code>&lt;form&gt;</code>里添加<code>{% csrf_token %}</code>：</p>
+(1)在<code>&lt;form&gt;</code>里添加<code>{% csrf_token %}</code>：</p>
 
 <pre><code>&lt;form action="." method="post"&gt;
     {% csrf_token %}
@@ -123,7 +123,7 @@
 &lt;/form&gt;
 </code></pre>
 
-<p>（2）然后在seetings.py中找到MIDDLEWARE_CLASSES并且添加上</p>
+<p>(2)然后在seetings.py中找到MIDDLEWARE_CLASSES并且添加上</p>
 
 <pre><code>'django.middleware.csrf.CsrfViewMiddleware',
 'django.middleware.csrf.CsrfResponseMiddleware',
@@ -180,7 +180,7 @@ return render_to_response('contact_form.html', context_instance=c)
   
 
 
-<time datetime="2012-10-13T00:02:00+11:00" pubdate data-updated="true">Oct 13<span>th</span>, 2012</time>
+<time datetime="2012-10-13T00:48:00+11:00" pubdate data-updated="true">Oct 13<span>th</span>, 2012</time>
       
 
 <span class="categories">
@@ -194,7 +194,7 @@ return render_to_response('contact_form.html', context_instance=c)
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://erica.im/blog/2012/10/13/django-csrf-error-fix/" data-via="qianshijia" data-counturl="http://erica.im/blog/2012/10/13/django-csrf-error-fix/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://erica.im/blog/2012/10/13/django-csrf-validation-failed/" data-via="qianshijia" data-counturl="http://erica.im/blog/2012/10/13/django-csrf-validation-failed/" >Tweet</a>
   
   
   
@@ -227,7 +227,7 @@ return render_to_response('contact_form.html', context_instance=c)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2012/10/13/django-csrf-error-fix/">Django CSRF verification failed</a>
+        <a href="/blog/2012/10/13/django-csrf-validation-failed/">Django CSRF Validation Failed</a>
       </li>
     
       <li class="post">
@@ -330,8 +330,8 @@ return render_to_response('contact_form.html', context_instance=c)
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://erica.im/blog/2012/10/13/django-csrf-error-fix/';
-        var disqus_url = 'http://erica.im/blog/2012/10/13/django-csrf-error-fix/';
+        var disqus_identifier = 'http://erica.im/blog/2012/10/13/django-csrf-validation-failed/';
+        var disqus_url = 'http://erica.im/blog/2012/10/13/django-csrf-validation-failed/';
         var disqus_script = 'embed.js';
       
     (function () {
