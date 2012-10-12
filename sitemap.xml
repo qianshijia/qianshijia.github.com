@@ -61,8 +61,8 @@
         <lastmod>2012-10-04T08:40:49+10:00</lastmod>
     </url>
     <url>
-        <loc>http://erica.im/blog/2012/10/13/django-csrf-validation-failed/</loc>
-        <lastmod>2012-10-13T01:00:08+11:00</lastmod>
+        <loc>http://erica.im/blog/2012/10/13/django-csrf-verification-failed/</loc>
+        <lastmod>2012-10-13T01:01:47+11:00</lastmod>
     </url>
     <url>
         <loc>http://erica.im/about/</loc>
@@ -70,11 +70,11 @@
     </url>
     <url>
         <loc>http://erica.im/blog/archives/</loc>
-        <lastmod>2012-10-13T01:00:08+11:00</lastmod>
+        <lastmod>2012-10-13T01:01:47+11:00</lastmod>
     </url>
     <url>
         <loc>http://erica.im/</loc>
-        <lastmod>2012-10-13T01:00:08+11:00</lastmod>
+        <lastmod>2012-10-13T01:01:47+11:00</lastmod>
     </url>
     <url>
         <loc>http://erica.im/my-resume/</loc>
