@@ -1,0 +1,39 @@
+---
+layout: post
+title: "Sydney"
+date: 2012-12-08 15:39
+comments: true
+categories: Blog
+---
+今天是来到悉尼的第一个周末，一个人闲着没事就出去逛逛，拍了一些照片。  
+这是悉尼的ANZAC纪念馆  
+{% img images/sydney/sydney-1.jpg %}  
+{% img images/sydney/sydney-2.jpg %}  
+{% img images/sydney/sydney-3.jpg %}  
+{% img images/sydney/sydney-4.jpg %}  
+圣玛利亚大教堂，圣诞要到了，门口摆出了耶稣出生时的场景  
+{% img images/sydney/sydney-5.jpg %}  
+{% img images/sydney/sydney-6.jpg %}  
+{% img images/sydney/sydney-7.jpg %}  
+新南威尔士州立艺术馆  
+{% img images/sydney/sydney-8.jpg %}  
+{% img images/sydney/sydney-9.jpg %}  
+{% img images/sydney/sydney-10.jpg %}  
+{% img images/sydney/sydney-11.jpg %}  
+接下来是一些随拍  
+{% img images/sydney/sydney-12.jpg %}  
+{% img images/sydney/sydney-13.jpg %}  
+{% img images/sydney/sydney-14.jpg %}  
+{% img images/sydney/sydney-16.jpg %}  
+{% img images/sydney/sydney-21.jpg %}  
+歌剧院和大桥  
+{% img images/sydney/sydney-15.jpg %}  
+{% img images/sydney/sydney-17.jpg %}  
+{% img images/sydney/sydney-22.jpg %}  
+{% img images/sydney/sydney-23.jpg %}  
+{% img images/sydney/sydney-24.jpg %}  
+悉尼港停着的豪华邮轮，第一次见到那么大的船，泰坦尼克大概也就这么大吧  
+{% img images/sydney/sydney-18.jpg %}  
+{% img images/sydney/sydney-19.jpg %}  
+{% img images/sydney/sydney-20.jpg %}
+
